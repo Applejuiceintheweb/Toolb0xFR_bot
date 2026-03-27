@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="fr">
 <head>
   <meta charset="utf-8">
@@ -212,116 +213,122 @@
     @keyframes badge-show  { from{transform:scale3d(0.5,0.5,1);opacity:0;visibility:hidden} 30%{transform:scale3d(1.2,1.2,1)} to{transform:scale3d(1,1,1);opacity:1;visibility:visible} }
     @keyframes badge-hide  { from{transform:scale3d(1,1,1);opacity:1;visibility:visible} to{transform:scale3d(0.5,0.5,1);opacity:0;visibility:hidden} }
 
-    /* ===== MODAL PRODUIT ===== */
-    .product-modal-overlay {
-      position: fixed; inset: 0; z-index: 100;
-      background: rgba(0,0,0,0.55);
-      display: flex; align-items: flex-end; justify-content: center;
-      opacity: 0; visibility: hidden;
-      transition: opacity .25s ease, visibility .25s ease;
-    }
-    .product-modal-overlay.open { opacity: 1; visibility: visible; }
-    .product-modal {
-      background: var(--block-bg-color, #fff);
-      width: 100%; max-width: 480px;
-      border-radius: 18px 18px 0 0;
-      padding: 24px 24px 36px;
-      box-sizing: border-box;
-      transform: translateY(100%);
-      transition: transform .3s cubic-bezier(.32,1,.44,1);
-    }
-    .product-modal-overlay.open .product-modal { transform: translateY(0); }
-    .product-modal-emoji { font-size: 72px; text-align: center; line-height: 1; margin-bottom: 12px; }
-    .product-modal-name {
-      font-size: 22px; font-weight: 700; text-align: center;
-      color: var(--text-color, #222); margin-bottom: 4px;
-    }
-    .product-modal-price {
-      font-size: 18px; font-weight: 700; text-align: center;
-      color: #31b545; margin-bottom: 12px;
-    }
-    .product-modal-stars { text-align: center; font-size: 26px; margin-bottom: 14px; letter-spacing: 3px; }
-    .star-filled { color: #31b545; }
-    .star-empty  { color: #ccc; }
-    .product-modal-desc {
-      font-size: 14px; line-height: 1.5; text-align: center;
-      color: var(--page-hint-color, #83878a); margin-bottom: 20px;
-    }
-    .product-modal-close {
-      display: block; width: 100%; padding: 13px;
-      background: #31b545; color: #fff; font-size: 15px; font-weight: 700;
-      border: none; border-radius: 10px; cursor: pointer; text-transform: uppercase;
-    }
-    .product-modal-close:active { background: #27a03a; }
-    /* ===== MODAL PAIEMENT ===== */
-    .payment-modal-overlay {
-      position: fixed; inset: 0; z-index: 200;
-      background: rgba(0,0,0,0.6);
-      display: flex; align-items: flex-end; justify-content: center;
-      opacity: 0; visibility: hidden;
-      transition: opacity .25s ease, visibility .25s ease;
-    }
-    .payment-modal-overlay.open { opacity: 1; visibility: visible; }
-    .payment-modal {
-      background: var(--block-bg-color, #fff);
-      width: 100%; max-width: 480px;
-      border-radius: 18px 18px 0 0;
-      padding: 20px 20px 36px;
-      box-sizing: border-box;
-      transform: translateY(100%);
-      transition: transform .3s cubic-bezier(.32,1,.44,1);
-    }
-    .payment-modal-overlay.open .payment-modal { transform: translateY(0); }
-    .payment-modal-title {
-      font-size: 17px; font-weight: 700; text-align: center;
-      color: var(--text-color, #222); margin-bottom: 18px;
-    }
-    .payment-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
-    .payment-option {
-      display: flex; align-items: center; gap: 12px;
-      padding: 13px 16px; border-radius: 12px;
-      border: 2px solid transparent;
-      background: var(--bg-color, #f0f0f0);
-      cursor: pointer; transition: border-color .15s, background .15s;
-    }
-    .payment-option.selected {
-      border-color: #31b545;
-      background: rgba(49,181,69,0.08);
-    }
-    .payment-option-icon { width: 28px; height: 28px; flex-shrink: 0; display:flex; align-items:center; justify-content:center; }
-    .payment-option-name { font-size: 15px; font-weight: 600; color: var(--text-color, #222); flex-grow: 1; }
-    .payment-option-check {
-      width: 20px; height: 20px; border-radius: 50%;
-      border: 2px solid #ccc; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      transition: border-color .15s, background .15s;
-    }
-    .payment-option.selected .payment-option-check {
-      border-color: #31b545; background: #31b545;
-    }
-    .payment-option.selected .payment-option-check::after {
-      content: '✓'; color: #fff; font-size: 11px; font-weight: 700;
-    }
-    .payment-confirm-btn {
-      display: block; width: 100%; padding: 14px;
-      background: #31b545; color: #fff; font-size: 15px; font-weight: 700;
-      border: none; border-radius: 12px; cursor: pointer; text-transform: uppercase;
-      opacity: 0.4; pointer-events: none; transition: opacity .2s;
-    }
-    .payment-confirm-btn.active { opacity: 1; pointer-events: auto; }
+```
+/* ===== MODAL PRODUIT ===== */
+.product-modal-overlay {
+  position: fixed; inset: 0; z-index: 100;
+  background: rgba(0,0,0,0.55);
+  display: flex; align-items: flex-end; justify-content: center;
+  opacity: 0; visibility: hidden;
+  transition: opacity .25s ease, visibility .25s ease;
+}
+.product-modal-overlay.open { opacity: 1; visibility: visible; }
+.product-modal {
+  background: var(--block-bg-color, #fff);
+  width: 100%; max-width: 480px;
+  border-radius: 18px 18px 0 0;
+  padding: 24px 24px 36px;
+  box-sizing: border-box;
+  transform: translateY(100%);
+  transition: transform .3s cubic-bezier(.32,1,.44,1);
+}
+.product-modal-overlay.open .product-modal { transform: translateY(0); }
+.product-modal-emoji { font-size: 72px; text-align: center; line-height: 1; margin-bottom: 12px; }
+.product-modal-name {
+  font-size: 22px; font-weight: 700; text-align: center;
+  color: var(--text-color, #222); margin-bottom: 4px;
+}
+.product-modal-price {
+  font-size: 18px; font-weight: 700; text-align: center;
+  color: #31b545; margin-bottom: 12px;
+}
+.product-modal-stars { text-align: center; font-size: 26px; margin-bottom: 14px; letter-spacing: 3px; }
+.star-filled { color: #31b545; }
+.star-empty  { color: #ccc; }
+.product-modal-desc {
+  font-size: 14px; line-height: 1.5; text-align: center;
+  color: var(--page-hint-color, #83878a); margin-bottom: 20px;
+}
+.product-modal-close {
+  display: block; width: 100%; padding: 13px;
+  background: #31b545; color: #fff; font-size: 15px; font-weight: 700;
+  border: none; border-radius: 10px; cursor: pointer; text-transform: uppercase;
+}
+.product-modal-close:active { background: #27a03a; }
+/* ===== MODAL PAIEMENT ===== */
+.payment-modal-overlay {
+  position: fixed; inset: 0; z-index: 200;
+  background: rgba(0,0,0,0.6);
+  display: flex; align-items: flex-end; justify-content: center;
+  opacity: 0; visibility: hidden;
+  transition: opacity .25s ease, visibility .25s ease;
+}
+.payment-modal-overlay.open { opacity: 1; visibility: visible; }
+.payment-modal {
+  background: var(--block-bg-color, #fff);
+  width: 100%; max-width: 480px;
+  border-radius: 18px 18px 0 0;
+  padding: 20px 20px 36px;
+  box-sizing: border-box;
+  transform: translateY(100%);
+  transition: transform .3s cubic-bezier(.32,1,.44,1);
+}
+.payment-modal-overlay.open .payment-modal { transform: translateY(0); }
+.payment-modal-title {
+  font-size: 17px; font-weight: 700; text-align: center;
+  color: var(--text-color, #222); margin-bottom: 18px;
+}
+.payment-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+.payment-option {
+  display: flex; align-items: center; gap: 12px;
+  padding: 13px 16px; border-radius: 12px;
+  border: 2px solid transparent;
+  background: var(--bg-color, #f0f0f0);
+  cursor: pointer; transition: border-color .15s, background .15s;
+}
+.payment-option.selected {
+  border-color: #31b545;
+  background: rgba(49,181,69,0.08);
+}
+.payment-option-icon { width: 28px; height: 28px; flex-shrink: 0; display:flex; align-items:center; justify-content:center; }
+.payment-option-name { font-size: 15px; font-weight: 600; color: var(--text-color, #222); flex-grow: 1; }
+.payment-option-check {
+  width: 20px; height: 20px; border-radius: 50%;
+  border: 2px solid #ccc; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color .15s, background .15s;
+}
+.payment-option.selected .payment-option-check {
+  border-color: #31b545; background: #31b545;
+}
+.payment-option.selected .payment-option-check::after {
+  content: '✓'; color: #fff; font-size: 11px; font-weight: 700;
+}
+.payment-confirm-btn {
+  display: block; width: 100%; padding: 14px;
+  background: #31b545; color: #fff; font-size: 15px; font-weight: 700;
+  border: none; border-radius: 12px; cursor: pointer; text-transform: uppercase;
+  opacity: 0.4; pointer-events: none; transition: opacity .2s;
+}
+.payment-confirm-btn.active { opacity: 1; pointer-events: auto; }
+```
+
   </style>
 </head>
 <body>
 
 <!-- ===== HEADER GIF ===== -->
+
 <div style="width:100%; background:#000; text-align:center; line-height:0;">
   <img src="https://i.imgur.com/lo5kfol.gif" style="width:100%; max-width:480px; display:block; margin:0 auto;" alt="French Toolbox">
 </div>
 
 <!-- ===== BARRE PAIEMENT + BRANDING ===== -->
+
 <div style="background:#111; padding: 8px 14px 10px; max-width:480px; margin:0 auto; box-sizing:border-box;">
 
   <!-- Modes de paiement -->
+
   <div style="display:flex; align-items:center; flex-wrap:wrap; gap:10px; margin-bottom:6px;">
     <span style="color:#aaa; font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:.5px; white-space:nowrap;">Modes de paiement</span>
     <!-- PayPal -->
@@ -371,6 +378,7 @@
   </div>
 
   <!-- Branding -->
+
   <div style="display:flex; align-items:center; gap:6px;">
     <span style="color:#666; font-size:10px;">French Toolbox® by @cproject01</span>
     <a href="https://t.me/cproject01" target="_blank" style="display:flex;align-items:center;text-decoration:none;">
@@ -385,9 +393,11 @@
 </div>
 
 <!-- ===== MENU ===== -->
+
 <section class="cafe-page cafe-items" id="cafe-items">
 
   <!-- Burger -->
+
   <div class="cafe-item js-item" data-item-id="1" data-item-price="4990">
     <div class="cafe-item-counter js-item-counter">1</div>
     <div class="cafe-item-photo"><div class="cafe-item-emoji">🍔</div></div>
@@ -402,6 +412,7 @@
   </div>
 
   <!-- Frites -->
+
   <div class="cafe-item js-item" data-item-id="2" data-item-price="1490">
     <div class="cafe-item-counter js-item-counter">1</div>
     <div class="cafe-item-photo"><div class="cafe-item-emoji">🍟</div></div>
@@ -416,6 +427,7 @@
   </div>
 
   <!-- Hotdog -->
+
   <div class="cafe-item js-item" data-item-id="3" data-item-price="3490">
     <div class="cafe-item-counter js-item-counter">1</div>
     <div class="cafe-item-photo"><div class="cafe-item-emoji">🌭</div></div>
@@ -430,6 +442,7 @@
   </div>
 
   <!-- Taco -->
+
   <div class="cafe-item js-item" data-item-id="4" data-item-price="3990">
     <div class="cafe-item-counter js-item-counter">1</div>
     <div class="cafe-item-photo"><div class="cafe-item-emoji">🌮</div></div>
@@ -444,6 +457,7 @@
   </div>
 
   <!-- Pizza -->
+
   <div class="cafe-item js-item" data-item-id="5" data-item-price="7990">
     <div class="cafe-item-counter js-item-counter">1</div>
     <div class="cafe-item-photo"><div class="cafe-item-emoji">🍕</div></div>
@@ -458,6 +472,7 @@
   </div>
 
   <!-- Donut -->
+
   <div class="cafe-item js-item" data-item-id="6" data-item-price="1490">
     <div class="cafe-item-counter js-item-counter">1</div>
     <div class="cafe-item-photo"><div class="cafe-item-emoji">🍩</div></div>
@@ -472,6 +487,7 @@
   </div>
 
   <!-- Popcorn -->
+
   <div class="cafe-item js-item" data-item-id="7" data-item-price="1990">
     <div class="cafe-item-counter js-item-counter">1</div>
     <div class="cafe-item-photo"><div class="cafe-item-emoji">🍿</div></div>
@@ -486,6 +502,7 @@
   </div>
 
   <!-- Coca -->
+
   <div class="cafe-item js-item" data-item-id="8" data-item-price="1490">
     <div class="cafe-item-counter js-item-counter">1</div>
     <div class="cafe-item-photo"><div class="cafe-item-emoji">🥤</div></div>
@@ -500,6 +517,7 @@
   </div>
 
   <!-- Gâteau -->
+
   <div class="cafe-item js-item" data-item-id="9" data-item-price="10990">
     <div class="cafe-item-counter js-item-counter">1</div>
     <div class="cafe-item-photo"><div class="cafe-item-emoji">🎂</div></div>
@@ -514,6 +532,7 @@
   </div>
 
   <!-- Glace -->
+
   <div class="cafe-item js-item" data-item-id="10" data-item-price="5990">
     <div class="cafe-item-counter js-item-counter">1</div>
     <div class="cafe-item-photo"><div class="cafe-item-emoji">🍦</div></div>
@@ -528,6 +547,7 @@
   </div>
 
   <!-- Cookie -->
+
   <div class="cafe-item js-item" data-item-id="11" data-item-price="3990">
     <div class="cafe-item-counter js-item-counter">1</div>
     <div class="cafe-item-photo"><div class="cafe-item-emoji">🍪</div></div>
@@ -542,6 +562,7 @@
   </div>
 
   <!-- Flan -->
+
   <div class="cafe-item js-item" data-item-id="12" data-item-price="7990">
     <div class="cafe-item-counter js-item-counter">1</div>
     <div class="cafe-item-photo"><div class="cafe-item-emoji">🍮</div></div>
@@ -562,6 +583,7 @@
 </section>
 
 <!-- ===== RÉCAPITULATIF COMMANDE ===== -->
+
 <section class="cafe-page cafe-order-overview" id="cafe-order">
   <div class="cafe-block">
     <div class="cafe-order-header-wrap">
@@ -678,6 +700,7 @@
 </div>
 
 <!-- ===== MODAL PRODUIT ===== -->
+
 <div class="product-modal-overlay" id="productModalOverlay">
   <div class="product-modal">
     <div class="product-modal-emoji" id="modalEmoji"></div>
@@ -690,6 +713,7 @@
 </div>
 
 <!-- ===== MODAL PAIEMENT ===== -->
+
 <div class="payment-modal-overlay" id="paymentModalOverlay">
   <div class="payment-modal">
     <div class="payment-modal-title">💳 Comment souhaitez-vous payer ?</div>
@@ -748,6 +772,8 @@
     <button class="payment-confirm-btn" id="paymentConfirmBtn">Confirmer le paiement</button>
   </div>
 </div>
+
+<script>
 const BOT_TOKEN = '8602196448:AAEcMiyEHkT2bggEpMDA6LhRStg67s1Vnqk';
 const ADMIN_CHAT_ID = '7963919721';
 // =========================================
@@ -796,12 +822,26 @@ function openProductModal(id) {
 }
 
 document.addEventListener('DOMContentLoaded', function() {
+  // Init Cafe (boutons Add, décrémenter, etc.)
+  Cafe.init();
+
+  // ===== MODALE PRODUIT =====
   document.getElementById('modalClose').addEventListener('click', function() {
     document.getElementById('productModalOverlay').classList.remove('open');
   });
   document.getElementById('productModalOverlay').addEventListener('click', function(e) {
     if (e.target === this) this.classList.remove('open');
   });
+
+  // Clic sur emoji = ouvre la modale produit
+  document.querySelectorAll('.cafe-items .cafe-item-emoji').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var itemEl = el.closest('.js-item');
+      if (itemEl) openProductModal(+itemEl.dataset.itemId);
+    });
+  });
+
   // ===== MODALE PAIEMENT =====
   var selectedPayment = null;
   var payOverlay = document.getElementById('paymentModalOverlay');
@@ -819,7 +859,6 @@ document.addEventListener('DOMContentLoaded', function() {
   confirmBtn.addEventListener('click', function() {
     if (!selectedPayment) return;
     payOverlay.classList.remove('open');
-    // reset sélection pour la prochaine fois
     document.querySelectorAll('.payment-option').forEach(function(o) { o.classList.remove('selected'); });
     confirmBtn.classList.remove('active');
     var method = selectedPayment;
@@ -830,16 +869,7 @@ document.addEventListener('DOMContentLoaded', function() {
   payOverlay.addEventListener('click', function(e) {
     if (e.target === payOverlay) payOverlay.classList.remove('open');
   });
-  document.querySelectorAll('.cafe-items .cafe-item-emoji').forEach(function(el) {
-    el.addEventListener('click', function(e) {
-      e.stopPropagation();
-      var itemEl = el.closest('.js-item');
-      if (itemEl) openProductModal(+itemEl.dataset.itemId);
-    });
-  });
 });
-
-var Cafe = {
   canPay: false,
   modeOrder: false,
   totalPrice: 0,
@@ -1060,7 +1090,7 @@ var Cafe = {
   }
 };
 
-document.addEventListener('DOMContentLoaded', function() { Cafe.init(); });
 </script>
+
 </body>
 </html>
