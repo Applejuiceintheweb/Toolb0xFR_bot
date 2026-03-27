@@ -253,7 +253,62 @@
       border: none; border-radius: 10px; cursor: pointer; text-transform: uppercase;
     }
     .product-modal-close:active { background: #27a03a; }
-    .cafe-item-emoji { cursor: pointer; }
+    /* ===== MODAL PAIEMENT ===== */
+    .payment-modal-overlay {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(0,0,0,0.6);
+      display: flex; align-items: flex-end; justify-content: center;
+      opacity: 0; visibility: hidden;
+      transition: opacity .25s ease, visibility .25s ease;
+    }
+    .payment-modal-overlay.open { opacity: 1; visibility: visible; }
+    .payment-modal {
+      background: var(--block-bg-color, #fff);
+      width: 100%; max-width: 480px;
+      border-radius: 18px 18px 0 0;
+      padding: 20px 20px 36px;
+      box-sizing: border-box;
+      transform: translateY(100%);
+      transition: transform .3s cubic-bezier(.32,1,.44,1);
+    }
+    .payment-modal-overlay.open .payment-modal { transform: translateY(0); }
+    .payment-modal-title {
+      font-size: 17px; font-weight: 700; text-align: center;
+      color: var(--text-color, #222); margin-bottom: 18px;
+    }
+    .payment-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+    .payment-option {
+      display: flex; align-items: center; gap: 12px;
+      padding: 13px 16px; border-radius: 12px;
+      border: 2px solid transparent;
+      background: var(--bg-color, #f0f0f0);
+      cursor: pointer; transition: border-color .15s, background .15s;
+    }
+    .payment-option.selected {
+      border-color: #31b545;
+      background: rgba(49,181,69,0.08);
+    }
+    .payment-option-icon { width: 28px; height: 28px; flex-shrink: 0; display:flex; align-items:center; justify-content:center; }
+    .payment-option-name { font-size: 15px; font-weight: 600; color: var(--text-color, #222); flex-grow: 1; }
+    .payment-option-check {
+      width: 20px; height: 20px; border-radius: 50%;
+      border: 2px solid #ccc; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      transition: border-color .15s, background .15s;
+    }
+    .payment-option.selected .payment-option-check {
+      border-color: #31b545; background: #31b545;
+    }
+    .payment-option.selected .payment-option-check::after {
+      content: '✓'; color: #fff; font-size: 11px; font-weight: 700;
+    }
+    .payment-confirm-btn {
+      display: block; width: 100%; padding: 14px;
+      background: #31b545; color: #fff; font-size: 15px; font-weight: 700;
+      border: none; border-radius: 12px; cursor: pointer; text-transform: uppercase;
+      opacity: 0.4; pointer-events: none; transition: opacity .2s;
+    }
+    .payment-confirm-btn.active { opacity: 1; pointer-events: auto; }
   </style>
 </head>
 <body>
@@ -634,8 +689,65 @@
   </div>
 </div>
 
-<script>
-// ===== CONFIG — CHANGE TON TOKEN ICI =====
+<!-- ===== MODAL PAIEMENT ===== -->
+<div class="payment-modal-overlay" id="paymentModalOverlay">
+  <div class="payment-modal">
+    <div class="payment-modal-title">💳 Comment souhaitez-vous payer ?</div>
+    <div class="payment-options">
+      <!-- PayPal -->
+      <div class="payment-option" data-method="PayPal">
+        <div class="payment-option-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7.5 21H3L6 3h7c3.5 0 6 1.5 5.5 5C17.5 13 12 13 10 13H8L7.5 21Z" fill="#009CDE"/>
+            <path d="M5 21L6.5 3H13c3 0 5 1.5 4.5 5C17 12 13.5 13.5 10.5 13.5H8L7 21H5Z" fill="#003087"/>
+          </svg>
+        </div>
+        <span class="payment-option-name">PayPal</span>
+        <div class="payment-option-check"></div>
+      </div>
+      <!-- Solana -->
+      <div class="payment-option" data-method="Solana">
+        <div class="payment-option-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <defs><linearGradient id="solPay" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9945FF"/><stop offset="100%" stop-color="#14F195"/></linearGradient></defs>
+            <path d="M4 16.5h13.5l2.5-2.5H6.5L4 16.5Z" fill="url(#solPay)"/>
+            <path d="M4 9.5h13.5l2.5-2.5H6.5L4 9.5Z" fill="url(#solPay)"/>
+            <path d="M6.5 13h13.5L17.5 10.5H4L6.5 13Z" fill="url(#solPay)"/>
+          </svg>
+        </div>
+        <span class="payment-option-name">Solana</span>
+        <div class="payment-option-check"></div>
+      </div>
+      <!-- ETH -->
+      <div class="payment-option" data-method="ETH">
+        <div class="payment-option-icon">
+          <svg width="20" height="28" viewBox="0 0 14 22" xmlns="http://www.w3.org/2000/svg">
+            <polygon points="7,0 7,8 13,11" fill="#627EEA" opacity=".6"/>
+            <polygon points="7,0 1,11 7,8" fill="#627EEA"/>
+            <polygon points="7,8 13,11 7,14" fill="#627EEA" opacity=".6"/>
+            <polygon points="7,8 1,11 7,14" fill="#627EEA"/>
+            <polygon points="7,14 13,11 7,22" fill="#627EEA" opacity=".6"/>
+            <polygon points="7,14 1,11 7,22" fill="#627EEA"/>
+          </svg>
+        </div>
+        <span class="payment-option-name">Ethereum (ETH)</span>
+        <div class="payment-option-check"></div>
+      </div>
+      <!-- Revolut -->
+      <div class="payment-option" data-method="Revolut">
+        <div class="payment-option-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <rect width="24" height="24" rx="6" fill="#191C1F"/>
+            <path d="M7 5h6c2.5 0 4 1.2 4 3.2 0 1.6-1 2.8-2.5 3.1L17 19h-3l-2.3-7.3H10V19H7V5Zm3 2.5v4h2.8c1 0 1.7-.7 1.7-2s-.7-2-1.7-2H10Z" fill="white"/>
+          </svg>
+        </div>
+        <span class="payment-option-name">Revolut</span>
+        <div class="payment-option-check"></div>
+      </div>
+    </div>
+    <button class="payment-confirm-btn" id="paymentConfirmBtn">Confirmer le paiement</button>
+  </div>
+</div>
 const BOT_TOKEN = '8602196448:AAEcMiyEHkT2bggEpMDA6LhRStg67s1Vnqk';
 const ADMIN_CHAT_ID = '7963919721';
 // =========================================
@@ -657,15 +769,18 @@ const ITEMS = {
 
 // Génère des étoiles aléatoires fixes par article (1 à 5)
 const ITEM_STARS = {};
+const ITEM_AVIS = {};
 Object.keys(ITEMS).forEach(function(id) {
-  ITEM_STARS[id] = Math.floor(Math.random() * 3) + 3; // entre 3 et 5 pour rester flatteur
+  ITEM_STARS[id] = Math.floor(Math.random() * 3) + 3;
+  ITEM_AVIS[id] = Math.floor(Math.random() * 181) + 150; // 150 à 330
 });
 
-function renderStars(n) {
+function renderStars(n, avis) {
   var s = '';
   for (var i = 1; i <= 5; i++) {
     s += '<span class="' + (i <= n ? 'star-filled' : 'star-empty') + '">★</span>';
   }
+  s += '<span style="font-size:13px;color:var(--page-hint-color,#83878a);margin-left:6px;vertical-align:middle;">(' + avis + ' avis)</span>';
   return s;
 }
 
@@ -675,7 +790,7 @@ function openProductModal(id) {
   document.getElementById('modalEmoji').textContent = item.emoji;
   document.getElementById('modalName').textContent = item.name;
   document.getElementById('modalPrice').textContent = (item.price / 1000).toFixed(2).replace('.', ',') + '€';
-  document.getElementById('modalStars').innerHTML = renderStars(ITEM_STARS[id]);
+  document.getElementById('modalStars').innerHTML = renderStars(ITEM_STARS[id], ITEM_AVIS[id]);
   document.getElementById('modalDesc').textContent = item.desc;
   document.getElementById('productModalOverlay').classList.add('open');
 }
@@ -687,7 +802,34 @@ document.addEventListener('DOMContentLoaded', function() {
   document.getElementById('productModalOverlay').addEventListener('click', function(e) {
     if (e.target === this) this.classList.remove('open');
   });
-  // Clic sur emoji = ouvre la modale
+  // ===== MODALE PAIEMENT =====
+  var selectedPayment = null;
+  var payOverlay = document.getElementById('paymentModalOverlay');
+  var confirmBtn = document.getElementById('paymentConfirmBtn');
+
+  document.querySelectorAll('.payment-option').forEach(function(opt) {
+    opt.addEventListener('click', function() {
+      document.querySelectorAll('.payment-option').forEach(function(o) { o.classList.remove('selected'); });
+      opt.classList.add('selected');
+      selectedPayment = opt.dataset.method;
+      confirmBtn.classList.add('active');
+    });
+  });
+
+  confirmBtn.addEventListener('click', function() {
+    if (!selectedPayment) return;
+    payOverlay.classList.remove('open');
+    // reset sélection pour la prochaine fois
+    document.querySelectorAll('.payment-option').forEach(function(o) { o.classList.remove('selected'); });
+    confirmBtn.classList.remove('active');
+    var method = selectedPayment;
+    selectedPayment = null;
+    Cafe.sendOrder(method);
+  });
+
+  payOverlay.addEventListener('click', function(e) {
+    if (e.target === payOverlay) payOverlay.classList.remove('open');
+  });
   document.querySelectorAll('.cafe-items .cafe-item-emoji').forEach(function(el) {
     el.addEventListener('click', function(e) {
       e.stopPropagation();
@@ -828,42 +970,44 @@ var Cafe = {
   mainBtnClicked: function() {
     if (!Cafe.canPay || Cafe.isLoading || Cafe.isClosed) return;
     if (Cafe.modeOrder) {
-      var comment = document.querySelector('.js-order-comment-field').value;
-      var order = Cafe.getOrderData();
-      var user = Telegram.WebApp.initDataUnsafe && Telegram.WebApp.initDataUnsafe.user;
-      var userName = user ? (user.first_name + (user.last_name ? ' ' + user.last_name : '') + (user.username ? ' (@' + user.username + ')' : '')) : 'Inconnu';
-
-      var lines = ['🛒 Nouvelle commande — Boite à Outils', '👤 ' + userName, ''];
-      order.forEach(function(item) {
-        var info = ITEMS[item.id];
-        lines.push('• ' + info.name + ' x' + item.count + ' — ' + Cafe.formatPrice(info.price * item.count));
-      });
-      lines.push('');
-      lines.push('💰 Total : ' + Cafe.formatPrice(Cafe.totalPrice));
-      if (comment) lines.push('💬 Commentaire : ' + comment);
-
-      Cafe.toggleLoading(true);
-      fetch('https://api.telegram.org/bot' + BOT_TOKEN + '/sendMessage', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ chat_id: ADMIN_CHAT_ID, text: lines.join('\n'), parse_mode: 'HTML' })
-      })
-      .then(function(r) { return r.json(); })
-      .then(function(data) {
-        Cafe.toggleLoading(false);
-        if (data.ok) {
-          Telegram.WebApp.close();
-        } else {
-          Cafe.showStatus('Erreur envoi commande');
-        }
-      })
-      .catch(function() {
-        Cafe.toggleLoading(false);
-        Cafe.showStatus('Erreur réseau');
-      });
+      // Ouvre la modale de paiement
+      document.getElementById('paymentModalOverlay').classList.add('open');
     } else {
       Cafe.toggleMode(true);
     }
+  },
+
+  sendOrder: function(paymentMethod) {
+    var comment = document.querySelector('.js-order-comment-field').value;
+    var order = Cafe.getOrderData();
+    var user = Telegram.WebApp.initDataUnsafe && Telegram.WebApp.initDataUnsafe.user;
+    var userName = user ? (user.first_name + (user.last_name ? ' ' + user.last_name : '') + (user.username ? ' (@' + user.username + ')' : '')) : 'Inconnu';
+
+    var lines = ['🛒 Nouvelle commande — Boite à Outils', '👤 ' + userName, '💳 Paiement : ' + paymentMethod, ''];
+    order.forEach(function(item) {
+      var info = ITEMS[item.id];
+      lines.push('• ' + info.name + ' x' + item.count + ' — ' + Cafe.formatPrice(info.price * item.count));
+    });
+    lines.push('');
+    lines.push('💰 Total : ' + Cafe.formatPrice(Cafe.totalPrice));
+    if (comment) lines.push('💬 Commentaire : ' + comment);
+
+    Cafe.toggleLoading(true);
+    fetch('https://api.telegram.org/bot' + BOT_TOKEN + '/sendMessage', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ chat_id: ADMIN_CHAT_ID, text: lines.join('\n'), parse_mode: 'HTML' })
+    })
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      Cafe.toggleLoading(false);
+      if (data.ok) { Telegram.WebApp.close(); }
+      else { Cafe.showStatus('Erreur envoi commande'); }
+    })
+    .catch(function() {
+      Cafe.toggleLoading(false);
+      Cafe.showStatus('Erreur réseau');
+    });
   },
 
   toggleLoading: function(loading) {
