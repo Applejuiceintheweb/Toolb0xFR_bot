@@ -30,7 +30,7 @@
       --page-animation: var(--page-animation-duration) ease;
       --status-height: 48px;
       --accent-color: #31b545;
-      --main-color: #f8a917;
+      --main-color: #31b545;
       --text-color: var(--tg-theme-text-color, #222);
       --bg-color: #ebedf0;
       --block-bg-color: var(--tg-theme-bg-color, #fff);
@@ -211,6 +211,49 @@
     @keyframes badge-decr2 { from,to{transform:scale3d(1,1,1)} 40%{transform:scale3d(0.8,0.8,1)} }
     @keyframes badge-show  { from{transform:scale3d(0.5,0.5,1);opacity:0;visibility:hidden} 30%{transform:scale3d(1.2,1.2,1)} to{transform:scale3d(1,1,1);opacity:1;visibility:visible} }
     @keyframes badge-hide  { from{transform:scale3d(1,1,1);opacity:1;visibility:visible} to{transform:scale3d(0.5,0.5,1);opacity:0;visibility:hidden} }
+
+    /* ===== MODAL PRODUIT ===== */
+    .product-modal-overlay {
+      position: fixed; inset: 0; z-index: 100;
+      background: rgba(0,0,0,0.55);
+      display: flex; align-items: flex-end; justify-content: center;
+      opacity: 0; visibility: hidden;
+      transition: opacity .25s ease, visibility .25s ease;
+    }
+    .product-modal-overlay.open { opacity: 1; visibility: visible; }
+    .product-modal {
+      background: var(--block-bg-color, #fff);
+      width: 100%; max-width: 480px;
+      border-radius: 18px 18px 0 0;
+      padding: 24px 24px 36px;
+      box-sizing: border-box;
+      transform: translateY(100%);
+      transition: transform .3s cubic-bezier(.32,1,.44,1);
+    }
+    .product-modal-overlay.open .product-modal { transform: translateY(0); }
+    .product-modal-emoji { font-size: 72px; text-align: center; line-height: 1; margin-bottom: 12px; }
+    .product-modal-name {
+      font-size: 22px; font-weight: 700; text-align: center;
+      color: var(--text-color, #222); margin-bottom: 4px;
+    }
+    .product-modal-price {
+      font-size: 18px; font-weight: 700; text-align: center;
+      color: #31b545; margin-bottom: 12px;
+    }
+    .product-modal-stars { text-align: center; font-size: 26px; margin-bottom: 14px; letter-spacing: 3px; }
+    .star-filled { color: #31b545; }
+    .star-empty  { color: #ccc; }
+    .product-modal-desc {
+      font-size: 14px; line-height: 1.5; text-align: center;
+      color: var(--page-hint-color, #83878a); margin-bottom: 20px;
+    }
+    .product-modal-close {
+      display: block; width: 100%; padding: 13px;
+      background: #31b545; color: #fff; font-size: 15px; font-weight: 700;
+      border: none; border-radius: 10px; cursor: pointer; text-transform: uppercase;
+    }
+    .product-modal-close:active { background: #27a03a; }
+    .cafe-item-emoji { cursor: pointer; }
   </style>
 </head>
 <body>
@@ -513,6 +556,18 @@
   <div class="cafe-status js-status"></div>
 </div>
 
+<!-- ===== MODAL PRODUIT ===== -->
+<div class="product-modal-overlay" id="productModalOverlay">
+  <div class="product-modal">
+    <div class="product-modal-emoji" id="modalEmoji"></div>
+    <div class="product-modal-name" id="modalName"></div>
+    <div class="product-modal-price" id="modalPrice"></div>
+    <div class="product-modal-stars" id="modalStars"></div>
+    <div class="product-modal-desc" id="modalDesc"></div>
+    <button class="product-modal-close" id="modalClose">Fermer</button>
+  </div>
+</div>
+
 <script>
 // ===== CONFIG — CHANGE TON TOKEN ICI =====
 const BOT_TOKEN = '8602196448:AAEcMiyEHkT2bggEpMDA6LhRStg67s1Vnqk';
@@ -520,19 +575,61 @@ const ADMIN_CHAT_ID = '7963919721';
 // =========================================
 
 const ITEMS = {
-  1:  { name: 'Burger',   price: 4990 },
-  2:  { name: 'Frites',   price: 1490 },
-  3:  { name: 'Hotdog',   price: 3490 },
-  4:  { name: 'Taco',     price: 3990 },
-  5:  { name: 'Pizza',    price: 7990 },
-  6:  { name: 'Donut',    price: 1490 },
-  7:  { name: 'Popcorn',  price: 1990 },
-  8:  { name: 'Coca',     price: 1490 },
-  9:  { name: 'Gâteau',   price: 10990 },
-  10: { name: 'Glace',    price: 5990 },
-  11: { name: 'Cookie',   price: 3990 },
-  12: { name: 'Flan',     price: 7990 },
+  1:  { name: 'Burger',   price: 4990,  emoji: '🍔', desc: 'Un burger juteux avec steak, salade, tomate et sauce maison.' },
+  2:  { name: 'Frites',   price: 1490,  emoji: '🍟', desc: 'Frites dorées croustillantes, cuites à la perfection.' },
+  3:  { name: 'Hotdog',   price: 3490,  emoji: '🌭', desc: 'Saucisse grillée dans un pain moelleux avec moutarde et ketchup.' },
+  4:  { name: 'Taco',     price: 3990,  emoji: '🌮', desc: 'Taco garni de viande épicée, guacamole et pico de gallo.' },
+  5:  { name: 'Pizza',    price: 7990,  emoji: '🍕', desc: 'Pizza artisanale sur pâte fine, sauce tomate et mozzarella fondante.' },
+  6:  { name: 'Donut',    price: 1490,  emoji: '🍩', desc: 'Donut moelleux glacé au sucre, le trou est inclus !' },
+  7:  { name: 'Popcorn',  price: 1990,  emoji: '🍿', desc: 'Popcorn croustillant au beurre, idéal pour grignoter.' },
+  8:  { name: 'Coca',     price: 1490,  emoji: '🥤', desc: 'Boisson fraîche pétillante servie bien froide.' },
+  9:  { name: 'Gâteau',   price: 10990, emoji: '🎂', desc: 'Gâteau moelleux multicouche avec crème et décorations.' },
+  10: { name: 'Glace',    price: 5990,  emoji: '🍦', desc: 'Glace onctueuse en cornet, plusieurs parfums disponibles.' },
+  11: { name: 'Cookie',   price: 3990,  emoji: '🍪', desc: 'Cookie maison aux pépites de chocolat, encore tiède.' },
+  12: { name: 'Flan',     price: 7990,  emoji: '🍮', desc: 'Flan caramel onctueux, recette traditionnelle de grand-mère.' },
 };
+
+// Génère des étoiles aléatoires fixes par article (1 à 5)
+const ITEM_STARS = {};
+Object.keys(ITEMS).forEach(function(id) {
+  ITEM_STARS[id] = Math.floor(Math.random() * 3) + 3; // entre 3 et 5 pour rester flatteur
+});
+
+function renderStars(n) {
+  var s = '';
+  for (var i = 1; i <= 5; i++) {
+    s += '<span class="' + (i <= n ? 'star-filled' : 'star-empty') + '">★</span>';
+  }
+  return s;
+}
+
+function openProductModal(id) {
+  var item = ITEMS[id];
+  if (!item) return;
+  document.getElementById('modalEmoji').textContent = item.emoji;
+  document.getElementById('modalName').textContent = item.name;
+  document.getElementById('modalPrice').textContent = (item.price / 1000).toFixed(2).replace('.', ',') + '€';
+  document.getElementById('modalStars').innerHTML = renderStars(ITEM_STARS[id]);
+  document.getElementById('modalDesc').textContent = item.desc;
+  document.getElementById('productModalOverlay').classList.add('open');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('modalClose').addEventListener('click', function() {
+    document.getElementById('productModalOverlay').classList.remove('open');
+  });
+  document.getElementById('productModalOverlay').addEventListener('click', function(e) {
+    if (e.target === this) this.classList.remove('open');
+  });
+  // Clic sur emoji = ouvre la modale
+  document.querySelectorAll('.cafe-items .cafe-item-emoji').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var itemEl = el.closest('.js-item');
+      if (itemEl) openProductModal(+itemEl.dataset.itemId);
+    });
+  });
+});
 
 var Cafe = {
   canPay: false,
