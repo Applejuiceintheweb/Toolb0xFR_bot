@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Boite à Outils</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"/>
+  <meta name="format-detection" content="telephone=no"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta name="robots" content="noindex, nofollow"/>
+  <script src="https://tg.dev/js/telegram-web-app.js?7"></script>
+  <script>
+    function setThemeClass() {
+      document.documentElement.className = Telegram.WebApp.colorScheme;
+    }
+    Telegram.WebApp.onEvent('themeChanged', setThemeClass);
+    setThemeClass();
+  </script>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-size: 13px;
+      line-height: 16px;
+      font-weight: 400;
+      background-color: var(--tg-theme-bg-color, #fff);
+      color: var(--tg-theme-text-color, #222);
+      margin: 0; padding: 0;
+      width: 1px; min-width: 100%;
+      --animation: .15s ease;
+      --page-animation-duration: .3s;
+      --page-animation: var(--page-animation-duration) ease;
+      --status-height: 48px;
+      --accent-color: #31b545;
+      --main-color: #f8a917;
+      --text-color: var(--tg-theme-text-color, #222);
+      --bg-color: #ebedf0;
+      --block-bg-color: var(--tg-theme-bg-color, #fff);
+      --page-hint-color: #83878a;
+      --hint-color: #74787a;
+      --placeholder-color: #999da1;
+      --ripple-duration: .45s;
+      --ripple-end-duration: .3s;
+      -webkit-user-select: none;
+      user-select: none;
+      cursor: default;
+    }
+    html.dark body {
+      --bg-color: #0f0f0f;
+      --text-color: #fff;
+      --page-hint-color: #9b9ba1;
+      --hint-color: #64666d;
+      --placeholder-color: #5d6163;
+    }
+    body.order-mode { background-color: var(--bg-color); }
+    * { -webkit-tap-highlight-color: transparent; }
+    .cafe-page { transition: filter var(--animation); }
+    body.closed .cafe-page { filter: grayscale(1) opacity(0.7); }
+    .cafe-block {
+      background-color: var(--block-bg-color);
+      box-shadow: 0 0.5px rgba(0,0,0,.07);
+    }
+    .cafe-items {
+      display: flex; flex-wrap: wrap;
+      margin: 0 auto; max-width: 480px;
+      justify-content: space-around;
+      align-content: flex-end;
+      transition: max-height var(--page-animation), opacity var(--page-animation);
+      background-color: var(--block-bg-color);
+    }
+    body.order-mode .cafe-items { max-height: 0 !important; opacity: 0 !important; }
+    .cafe-items:after { content: ''; flex-grow: 2; }
+    .cafe-item, .cafe-item-shadow {
+      position: relative; width: 120px; height: 159px;
+      padding: 4px 5px 21px; box-sizing: border-box; text-align: center;
+    }
+    .cafe-item-shadow { height: 0; padding: 0; margin: 0; }
+    .cafe-item-photo { position: relative; height: 78px; }
+    .cafe-item-photo .cafe-item-emoji { font-size: 70px; line-height: 78px; }
+    .cafe-item-lottie {
+      display: inline-block; vertical-align: top;
+      position: relative; margin: 0 auto;
+    }
+    .cafe-item-photo .cafe-item-lottie { width: 74px; }
+    .cafe-item-lottie:before { content: ''; display: block; padding-top: 100%; }
+    .cafe-item-lottie img, .cafe-item-lottie canvas {
+      position: absolute; top: 0; bottom: 0; left: 0; right: 0;
+      width: 100%; height: 100%;
+    }
+    .cafe-item-label { display: flex; justify-content: center; }
+    .cafe-item-title { font-weight: 500; }
+    .cafe-item-price { font-weight: 700; white-space: nowrap; }
+    .cafe-item-price:before {
+      display: inline-block; vertical-align: top; content: '';
+      width: 2px; height: 2px; border-radius: 2px;
+      background-color: currentColor; margin: 7px 4px;
+    }
+    .cafe-item-buttons {
+      display: flex; width: 80px; justify-content: space-between;
+      margin: 10px auto 0; position: relative; transition: all var(--animation);
+    }
+    button { cursor: pointer; }
+    button, .cafe-item-counter {
+      display: inline-block;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      font-weight: 700; font-size: 14px; line-height: 18px;
+      padding: 6px 16px; height: 30px; border-radius: 7px;
+      box-sizing: border-box; background-color: var(--main-color);
+      text-transform: uppercase; color: #fff; outline: none; border: none;
+    }
+    .cafe-item-counter {
+      position: absolute; right: 0; top: 0; min-width: 22px; height: 22px;
+      padding: 2px 6px; margin: 4px 6px; border-radius: 11px;
+      transform: scale3d(0,0,1); animation: var(--animation) both;
+      pointer-events: none; z-index: 3;
+    }
+    .cafe-item-incr-button {
+      position: absolute !important; top: 0; right: 0;
+      transition: width var(--animation); width: 80px;
+    }
+    .selected .cafe-item-incr-button { width: 38px; }
+    .cafe-item-decr-button { position: relative; width: 38px; }
+    .cafe-item-decr-button {
+      background-color: #e64d44; pointer-events: none;
+      transform: scale3d(0.9,0.9,1);
+      transition: transform var(--animation), visibility var(--animation);
+      visibility: hidden;
+    }
+    .selected .cafe-item-decr-button {
+      pointer-events: auto; transform: scale3d(1,1,1); visibility: visible;
+    }
+    .cafe-item-incr-button:before, .cafe-item-incr-button:after, .cafe-item-decr-button:before {
+      display: inline-block; position: absolute; content: '';
+      left: 0; right: 0; top: 0; bottom: 0; margin: auto;
+      width: 14px; height: 3px; background-color: #fff; border-radius: 1px; z-index: 1;
+    }
+    .cafe-item-incr-button:before, .cafe-item-incr-button:after {
+      background-color: rgba(255,255,255,0); transition: background-color var(--animation);
+    }
+    .selected .cafe-item-incr-button:before, .selected .cafe-item-incr-button:after { background-color: #fff; }
+    .cafe-item-incr-button .button-item-label { transition: transform var(--animation); }
+    .selected .cafe-item-incr-button .button-item-label { transform: scale3d(0.4,0,1); }
+    .cafe-item-incr-button:after { width: 3px; height: 14px; }
+    .cafe-status-wrap {
+      position: fixed; left: 0; right: 0; top: 0;
+      transform: translateY(var(--tg-viewport-height, 100vh));
+    }
+    .cafe-status {
+      position: fixed; bottom: 0; left: 0; right: 0;
+      display: flex; width: 100%; padding: 8px 20px;
+      justify-content: center; align-items: center;
+      background-color: #e64d44; box-shadow: 0 var(--status-height) #e64d44;
+      color: #fff; height: var(--status-height);
+      transition: transform var(--animation), visibility var(--animation);
+      transform: translateY(var(--status-height));
+      box-sizing: border-box; pointer-events: none; visibility: hidden; z-index: 11;
+    }
+    .cafe-status.shown { pointer-events: auto; visibility: visible; transform: translateY(0); }
+    .cafe-order-overview {
+      display: none; font-family: inherit;
+      background-color: var(--bg-color);
+      transition: opacity var(--page-animation); opacity: 0;
+    }
+    body.order-mode .cafe-order-overview { opacity: 1; }
+    .cafe-order-header-wrap { padding: 21px 20px 14px; display: flex; align-items: center; }
+    .cafe-order-header {
+      font-size: 17px; line-height: 21px;
+      text-transform: uppercase; flex-grow: 1; padding: 0; margin: 0;
+    }
+    .cafe-order-edit {
+      font-size: 15px; line-height: 18px; font-weight: 500; color: var(--accent-color);
+    }
+    .cafe-order-item { display: none; padding: 5px 20px 5px 14px; }
+    .cafe-order-item.selected { display: flex; }
+    .cafe-order-item-label { flex-grow: 1; }
+    .cafe-order-item-photo { text-align: center; width: 50px; height: 50px; margin-right: 11px; }
+    .cafe-order-item-photo .cafe-item-lottie { width: 40px; margin: 4px 0; }
+    .cafe-order-item-title { font-size: 15px; line-height: 18px; font-weight: 700; padding: 3px 0; }
+    .cafe-order-item-counter { color: var(--main-color); }
+    .cafe-order-item-description { font-size: 14px; line-height: 17px; color: var(--page-hint-color); padding: 2px 0; }
+    .cafe-order-item-price { font-size: 14px; line-height: 17px; font-weight: 500; padding: 4px 0; }
+    .cafe-text-field-wrap { margin-top: 14px; }
+    .cafe-text-field {
+      font-family: inherit; font-size: 17px; line-height: 21px;
+      padding: 12px 20px 13px; box-sizing: border-box; display: block;
+      outline: none; border: none; border-radius: 0; resize: none;
+      color: var(--text-color); -webkit-user-select: auto; user-select: auto;
+      cursor: auto; width: 100%;
+      background-color: var(--block-bg-color);
+    }
+    .cafe-text-field::placeholder { color: var(--placeholder-color); }
+    .cafe-text-field-hint { font-size: 14px; line-height: 18px; padding: 10px 20px 24px; color: var(--hint-color); }
+    .button-item.ripple-handler { position: relative; }
+    .ripple-mask {
+      position: absolute; left: 0; right: 0; top: 0; bottom: 0;
+      transform: translateZ(0); overflow: hidden; pointer-events: none;
+    }
+    .button-item .ripple-mask { border-radius: inherit; }
+    .button-item .ripple {
+      position: absolute; width: 200%; left: 50%; top: 50%;
+      margin: -100% 0 0 -100%; padding-top: 200%; border-radius: 50%;
+      background-color: rgba(0,0,0,0.07);
+      transition: transform var(--ripple-duration) ease-out, opacity var(--ripple-duration) ease-out;
+      opacity: 0;
+    }
+    .button-item-label {
+      display: inline-block; max-width: 100%; overflow: hidden;
+      text-overflow: ellipsis; vertical-align: top; position: relative; z-index: 1;
+    }
+    @keyframes badge-incr  { from,to{transform:scale3d(1,1,1)} 40%{transform:scale3d(1.2,1.2,1)} }
+    @keyframes badge-incr2 { from,to{transform:scale3d(1,1,1)} 40%{transform:scale3d(1.2,1.2,1)} }
+    @keyframes badge-decr  { from,to{transform:scale3d(1,1,1)} 40%{transform:scale3d(0.8,0.8,1)} }
+    @keyframes badge-decr2 { from,to{transform:scale3d(1,1,1)} 40%{transform:scale3d(0.8,0.8,1)} }
+    @keyframes badge-show  { from{transform:scale3d(0.5,0.5,1);opacity:0;visibility:hidden} 30%{transform:scale3d(1.2,1.2,1)} to{transform:scale3d(1,1,1);opacity:1;visibility:visible} }
+    @keyframes badge-hide  { from{transform:scale3d(1,1,1);opacity:1;visibility:visible} to{transform:scale3d(0.5,0.5,1);opacity:0;visibility:hidden} }
+  </style>
+</head>
+<body>
+
+<!-- ===== MENU ===== -->
+<section class="cafe-page cafe-items" id="cafe-items">
+
+  <!-- Burger -->
+  <div class="cafe-item js-item" data-item-id="1" data-item-price="4990">
+    <div class="cafe-item-counter js-item-counter">1</div>
+    <div class="cafe-item-photo"><div class="cafe-item-emoji">🍔</div></div>
+    <div class="cafe-item-label">
+      <span class="cafe-item-title">Burger</span>
+      <span class="cafe-item-price">4,99€</span>
+    </div>
+    <div class="cafe-item-buttons">
+      <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
+      <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
+    </div>
+  </div>
+
+  <!-- Frites -->
+  <div class="cafe-item js-item" data-item-id="2" data-item-price="1490">
+    <div class="cafe-item-counter js-item-counter">1</div>
+    <div class="cafe-item-photo"><div class="cafe-item-emoji">🍟</div></div>
+    <div class="cafe-item-label">
+      <span class="cafe-item-title">Frites</span>
+      <span class="cafe-item-price">1,49€</span>
+    </div>
+    <div class="cafe-item-buttons">
+      <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
+      <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
+    </div>
+  </div>
+
+  <!-- Hotdog -->
+  <div class="cafe-item js-item" data-item-id="3" data-item-price="3490">
+    <div class="cafe-item-counter js-item-counter">1</div>
+    <div class="cafe-item-photo"><div class="cafe-item-emoji">🌭</div></div>
+    <div class="cafe-item-label">
+      <span class="cafe-item-title">Hotdog</span>
+      <span class="cafe-item-price">3,49€</span>
+    </div>
+    <div class="cafe-item-buttons">
+      <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
+      <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
+    </div>
+  </div>
+
+  <!-- Taco -->
+  <div class="cafe-item js-item" data-item-id="4" data-item-price="3990">
+    <div class="cafe-item-counter js-item-counter">1</div>
+    <div class="cafe-item-photo"><div class="cafe-item-emoji">🌮</div></div>
+    <div class="cafe-item-label">
+      <span class="cafe-item-title">Taco</span>
+      <span class="cafe-item-price">3,99€</span>
+    </div>
+    <div class="cafe-item-buttons">
+      <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
+      <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
+    </div>
+  </div>
+
+  <!-- Pizza -->
+  <div class="cafe-item js-item" data-item-id="5" data-item-price="7990">
+    <div class="cafe-item-counter js-item-counter">1</div>
+    <div class="cafe-item-photo"><div class="cafe-item-emoji">🍕</div></div>
+    <div class="cafe-item-label">
+      <span class="cafe-item-title">Pizza</span>
+      <span class="cafe-item-price">7,99€</span>
+    </div>
+    <div class="cafe-item-buttons">
+      <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
+      <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
+    </div>
+  </div>
+
+  <!-- Donut -->
+  <div class="cafe-item js-item" data-item-id="6" data-item-price="1490">
+    <div class="cafe-item-counter js-item-counter">1</div>
+    <div class="cafe-item-photo"><div class="cafe-item-emoji">🍩</div></div>
+    <div class="cafe-item-label">
+      <span class="cafe-item-title">Donut</span>
+      <span class="cafe-item-price">1,49€</span>
+    </div>
+    <div class="cafe-item-buttons">
+      <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
+      <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
+    </div>
+  </div>
+
+  <!-- Popcorn -->
+  <div class="cafe-item js-item" data-item-id="7" data-item-price="1990">
+    <div class="cafe-item-counter js-item-counter">1</div>
+    <div class="cafe-item-photo"><div class="cafe-item-emoji">🍿</div></div>
+    <div class="cafe-item-label">
+      <span class="cafe-item-title">Popcorn</span>
+      <span class="cafe-item-price">1,99€</span>
+    </div>
+    <div class="cafe-item-buttons">
+      <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
+      <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
+    </div>
+  </div>
+
+  <!-- Coca -->
+  <div class="cafe-item js-item" data-item-id="8" data-item-price="1490">
+    <div class="cafe-item-counter js-item-counter">1</div>
+    <div class="cafe-item-photo"><div class="cafe-item-emoji">🥤</div></div>
+    <div class="cafe-item-label">
+      <span class="cafe-item-title">Coca</span>
+      <span class="cafe-item-price">1,49€</span>
+    </div>
+    <div class="cafe-item-buttons">
+      <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
+      <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
+    </div>
+  </div>
+
+  <!-- Gâteau -->
+  <div class="cafe-item js-item" data-item-id="9" data-item-price="10990">
+    <div class="cafe-item-counter js-item-counter">1</div>
+    <div class="cafe-item-photo"><div class="cafe-item-emoji">🎂</div></div>
+    <div class="cafe-item-label">
+      <span class="cafe-item-title">Gâteau</span>
+      <span class="cafe-item-price">10,99€</span>
+    </div>
+    <div class="cafe-item-buttons">
+      <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
+      <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
+    </div>
+  </div>
+
+  <!-- Glace -->
+  <div class="cafe-item js-item" data-item-id="10" data-item-price="5990">
+    <div class="cafe-item-counter js-item-counter">1</div>
+    <div class="cafe-item-photo"><div class="cafe-item-emoji">🍦</div></div>
+    <div class="cafe-item-label">
+      <span class="cafe-item-title">Glace</span>
+      <span class="cafe-item-price">5,99€</span>
+    </div>
+    <div class="cafe-item-buttons">
+      <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
+      <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
+    </div>
+  </div>
+
+  <!-- Cookie -->
+  <div class="cafe-item js-item" data-item-id="11" data-item-price="3990">
+    <div class="cafe-item-counter js-item-counter">1</div>
+    <div class="cafe-item-photo"><div class="cafe-item-emoji">🍪</div></div>
+    <div class="cafe-item-label">
+      <span class="cafe-item-title">Cookie</span>
+      <span class="cafe-item-price">3,99€</span>
+    </div>
+    <div class="cafe-item-buttons">
+      <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
+      <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
+    </div>
+  </div>
+
+  <!-- Flan -->
+  <div class="cafe-item js-item" data-item-id="12" data-item-price="7990">
+    <div class="cafe-item-counter js-item-counter">1</div>
+    <div class="cafe-item-photo"><div class="cafe-item-emoji">🍮</div></div>
+    <div class="cafe-item-label">
+      <span class="cafe-item-title">Flan</span>
+      <span class="cafe-item-price">7,99€</span>
+    </div>
+    <div class="cafe-item-buttons">
+      <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
+      <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
+    </div>
+  </div>
+
+  <div class="cafe-item-shadow"></div>
+  <div class="cafe-item-shadow"></div>
+  <div class="cafe-item-shadow"></div>
+  <div class="cafe-item-shadow"></div>
+</section>
+
+<!-- ===== RÉCAPITULATIF COMMANDE ===== -->
+<section class="cafe-page cafe-order-overview" id="cafe-order">
+  <div class="cafe-block">
+    <div class="cafe-order-header-wrap">
+      <h2 class="cafe-order-header">Votre commande</h2>
+      <span class="cafe-order-edit js-order-edit">Modifier</span>
+    </div>
+    <div class="cafe-order-items">
+      <div class="cafe-order-item js-order-item" data-item-id="1">
+        <div class="cafe-order-item-photo"><div class="cafe-item-emoji" style="font-size:38px;line-height:50px">🍔</div></div>
+        <div class="cafe-order-item-label">
+          <div class="cafe-order-item-title">Burger <span class="cafe-order-item-counter"><span class="js-order-item-counter">1</span>x</span></div>
+          <div class="cafe-order-item-description">Meat™</div>
+        </div>
+        <div class="cafe-order-item-price js-order-item-price">4,99€</div>
+      </div>
+      <div class="cafe-order-item js-order-item" data-item-id="2">
+        <div class="cafe-order-item-photo"><div class="cafe-item-emoji" style="font-size:38px;line-height:50px">🍟</div></div>
+        <div class="cafe-order-item-label">
+          <div class="cafe-order-item-title">Frites <span class="cafe-order-item-counter"><span class="js-order-item-counter">1</span>x</span></div>
+          <div class="cafe-order-item-description">Po-ta-toes</div>
+        </div>
+        <div class="cafe-order-item-price js-order-item-price">1,49€</div>
+      </div>
+      <div class="cafe-order-item js-order-item" data-item-id="3">
+        <div class="cafe-order-item-photo"><div class="cafe-item-emoji" style="font-size:38px;line-height:50px">🌭</div></div>
+        <div class="cafe-order-item-label">
+          <div class="cafe-order-item-title">Hotdog <span class="cafe-order-item-counter"><span class="js-order-item-counter">1</span>x</span></div>
+          <div class="cafe-order-item-description">0% chien, 100% chaud</div>
+        </div>
+        <div class="cafe-order-item-price js-order-item-price">3,49€</div>
+      </div>
+      <div class="cafe-order-item js-order-item" data-item-id="4">
+        <div class="cafe-order-item-photo"><div class="cafe-item-emoji" style="font-size:38px;line-height:50px">🌮</div></div>
+        <div class="cafe-order-item-label">
+          <div class="cafe-order-item-title">Taco <span class="cafe-order-item-counter"><span class="js-order-item-counter">1</span>x</span></div>
+          <div class="cafe-order-item-description">Mucho más</div>
+        </div>
+        <div class="cafe-order-item-price js-order-item-price">3,99€</div>
+      </div>
+      <div class="cafe-order-item js-order-item" data-item-id="5">
+        <div class="cafe-order-item-photo"><div class="cafe-item-emoji" style="font-size:38px;line-height:50px">🍕</div></div>
+        <div class="cafe-order-item-label">
+          <div class="cafe-order-item-title">Pizza <span class="cafe-order-item-counter"><span class="js-order-item-counter">1</span>x</span></div>
+          <div class="cafe-order-item-description">That's amore</div>
+        </div>
+        <div class="cafe-order-item-price js-order-item-price">7,99€</div>
+      </div>
+      <div class="cafe-order-item js-order-item" data-item-id="6">
+        <div class="cafe-order-item-photo"><div class="cafe-item-emoji" style="font-size:38px;line-height:50px">🍩</div></div>
+        <div class="cafe-order-item-label">
+          <div class="cafe-order-item-title">Donut <span class="cafe-order-item-counter"><span class="js-order-item-counter">1</span>x</span></div>
+          <div class="cafe-order-item-description">Trou inclus</div>
+        </div>
+        <div class="cafe-order-item-price js-order-item-price">1,49€</div>
+      </div>
+      <div class="cafe-order-item js-order-item" data-item-id="7">
+        <div class="cafe-order-item-photo"><div class="cafe-item-emoji" style="font-size:38px;line-height:50px">🍿</div></div>
+        <div class="cafe-order-item-label">
+          <div class="cafe-order-item-title">Popcorn <span class="cafe-order-item-counter"><span class="js-order-item-counter">1</span>x</span></div>
+          <div class="cafe-order-item-description">Lumières, caméra, pop</div>
+        </div>
+        <div class="cafe-order-item-price js-order-item-price">1,99€</div>
+      </div>
+      <div class="cafe-order-item js-order-item" data-item-id="8">
+        <div class="cafe-order-item-photo"><div class="cafe-item-emoji" style="font-size:38px;line-height:50px">🥤</div></div>
+        <div class="cafe-order-item-label">
+          <div class="cafe-order-item-title">Coca <span class="cafe-order-item-counter"><span class="js-order-item-counter">1</span>x</span></div>
+          <div class="cafe-order-item-description">The liquid kind</div>
+        </div>
+        <div class="cafe-order-item-price js-order-item-price">1,49€</div>
+      </div>
+      <div class="cafe-order-item js-order-item" data-item-id="9">
+        <div class="cafe-order-item-photo"><div class="cafe-item-emoji" style="font-size:38px;line-height:50px">🎂</div></div>
+        <div class="cafe-order-item-label">
+          <div class="cafe-order-item-title">Gâteau <span class="cafe-order-item-counter"><span class="js-order-item-counter">1</span>x</span></div>
+          <div class="cafe-order-item-description">Substitute du pain</div>
+        </div>
+        <div class="cafe-order-item-price js-order-item-price">10,99€</div>
+      </div>
+      <div class="cafe-order-item js-order-item" data-item-id="10">
+        <div class="cafe-order-item-photo"><div class="cafe-item-emoji" style="font-size:38px;line-height:50px">🍦</div></div>
+        <div class="cafe-order-item-label">
+          <div class="cafe-order-item-title">Glace <span class="cafe-order-item-counter"><span class="js-order-item-counter">1</span>x</span></div>
+          <div class="cafe-order-item-description">Cône de la honte</div>
+        </div>
+        <div class="cafe-order-item-price js-order-item-price">5,99€</div>
+      </div>
+      <div class="cafe-order-item js-order-item" data-item-id="11">
+        <div class="cafe-order-item-photo"><div class="cafe-item-emoji" style="font-size:38px;line-height:50px">🍪</div></div>
+        <div class="cafe-order-item-label">
+          <div class="cafe-order-item-title">Cookie <span class="cafe-order-item-counter"><span class="js-order-item-counter">1</span>x</span></div>
+          <div class="cafe-order-item-description">Le favori du lait</div>
+        </div>
+        <div class="cafe-order-item-price js-order-item-price">3,99€</div>
+      </div>
+      <div class="cafe-order-item js-order-item" data-item-id="12">
+        <div class="cafe-order-item-photo"><div class="cafe-item-emoji" style="font-size:38px;line-height:50px">🍮</div></div>
+        <div class="cafe-order-item-label">
+          <div class="cafe-order-item-title">Flan <span class="cafe-order-item-counter"><span class="js-order-item-counter">1</span>x</span></div>
+          <div class="cafe-order-item-description">Flan-tastique</div>
+        </div>
+        <div class="cafe-order-item-price js-order-item-price">7,99€</div>
+      </div>
+    </div>
+  </div>
+  <div class="cafe-text-field-wrap">
+    <textarea class="cafe-text-field js-order-comment-field cafe-block" rows="1" placeholder="Ajouter un commentaire…"></textarea>
+    <div class="cafe-text-field-hint">Demandes spéciales, allergies, détails…</div>
+  </div>
+</section>
+
+<div class="cafe-status-wrap">
+  <div class="cafe-status js-status"></div>
+</div>
+
+<script>
+// ===== CONFIG — CHANGE TON TOKEN ICI =====
+const BOT_TOKEN = 'TON_TOKEN_ICI';
+const ADMIN_CHAT_ID = 'TON_CHAT_ID_ICI';
+// =========================================
+
+const ITEMS = {
+  1:  { name: 'Burger',   price: 4990 },
+  2:  { name: 'Frites',   price: 1490 },
+  3:  { name: 'Hotdog',   price: 3490 },
+  4:  { name: 'Taco',     price: 3990 },
+  5:  { name: 'Pizza',    price: 7990 },
+  6:  { name: 'Donut',    price: 1490 },
+  7:  { name: 'Popcorn',  price: 1990 },
+  8:  { name: 'Coca',     price: 1490 },
+  9:  { name: 'Gâteau',   price: 10990 },
+  10: { name: 'Glace',    price: 5990 },
+  11: { name: 'Cookie',   price: 3990 },
+  12: { name: 'Flan',     price: 7990 },
+};
+
+var Cafe = {
+  canPay: false,
+  modeOrder: false,
+  totalPrice: 0,
+  isLoading: false,
+  isClosed: false,
+
+  init: function() {
+    Telegram.WebApp.ready();
+    Telegram.WebApp.expand();
+    document.body.style.display = '';
+
+    document.querySelectorAll('.js-item-incr-btn').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        Cafe.incrClicked(btn.closest('.js-item'), 1);
+      });
+    });
+    document.querySelectorAll('.js-item-decr-btn').forEach(function(btn) {
+      btn.addEventListener('click', function(e) {
+        e.preventDefault();
+        Cafe.incrClicked(btn.closest('.js-item'), -1);
+      });
+    });
+    document.querySelectorAll('.js-order-edit').forEach(function(el) {
+      el.addEventListener('click', function(e) {
+        e.preventDefault();
+        Cafe.toggleMode(false);
+      });
+    });
+    document.querySelectorAll('.js-status').forEach(function(el) {
+      el.addEventListener('click', function() { Cafe.hideStatus(); });
+    });
+
+    Telegram.WebApp.MainButton.setParams({ text_color: '#fff' }).onClick(Cafe.mainBtnClicked);
+    Cafe.initRipple();
+  },
+
+  formatPrice: function(price) {
+    return (price / 1000).toFixed(2).replace('.', ',') + '€';
+  },
+
+  updateItem: function(itemEl, delta) {
+    var price = +itemEl.dataset.itemPrice;
+    var count = +itemEl.dataset.itemCount || 0;
+    var counterEl = itemEl.querySelector('.js-item-counter');
+    counterEl.textContent = count ? count : 1;
+
+    var isSelected = itemEl.classList.contains('selected');
+    var animName = isSelected
+      ? (delta > 0 ? 'badge-incr' : (count > 0 ? 'badge-decr' : 'badge-hide'))
+      : 'badge-show';
+    var curAnim = counterEl.style.animationName;
+    if ((animName === 'badge-incr' || animName === 'badge-decr') && animName === curAnim) animName += '2';
+    counterEl.style.animationName = animName;
+    itemEl.classList.toggle('selected', count > 0);
+
+    var orderItemEl = document.querySelector('.js-order-item[data-item-id="' + itemEl.dataset.itemId + '"]');
+    if (orderItemEl) {
+      orderItemEl.querySelector('.js-order-item-counter').textContent = count ? count : 1;
+      orderItemEl.classList.toggle('selected', count > 0);
+      orderItemEl.querySelector('.js-order-item-price').textContent = Cafe.formatPrice(count * price);
+    }
+    Cafe.updateTotalPrice();
+  },
+
+  incrClicked: function(itemEl, delta) {
+    if (Cafe.isLoading || Cafe.isClosed) return;
+    var count = (+itemEl.dataset.itemCount || 0) + delta;
+    if (count < 0) count = 0;
+    itemEl.dataset.itemCount = count;
+    Cafe.updateItem(itemEl, delta);
+  },
+
+  updateMainButton: function() {
+    var mb = Telegram.WebApp.MainButton;
+    if (Cafe.modeOrder) {
+      if (Cafe.isLoading) {
+        mb.setParams({ is_visible: true, color: '#65c36d' }).showProgress();
+      } else {
+        mb.setParams({ is_visible: !!Cafe.canPay, text: 'PAYER ' + Cafe.formatPrice(Cafe.totalPrice), color: '#31b545' }).hideProgress();
+      }
+    } else {
+      mb.setParams({ is_visible: !!Cafe.canPay, text: 'VOIR LA COMMANDE', color: '#31b545' }).hideProgress();
+    }
+  },
+
+  updateTotalPrice: function() {
+    var total = 0;
+    document.querySelectorAll('.js-item').forEach(function(el) {
+      total += (+el.dataset.itemPrice || 0) * (+el.dataset.itemCount || 0);
+    });
+    Cafe.canPay = total > 0;
+    Cafe.totalPrice = total;
+    Cafe.updateMainButton();
+  },
+
+  getOrderData: function() {
+    var order = [];
+    document.querySelectorAll('.js-item').forEach(function(el) {
+      var count = +el.dataset.itemCount || 0;
+      if (count > 0) order.push({ id: +el.dataset.itemId, count: count });
+    });
+    return order;
+  },
+
+  toggleMode: function(modeOrder) {
+    Cafe.modeOrder = modeOrder;
+    var itemsEl = document.getElementById('cafe-items');
+    var orderEl = document.getElementById('cafe-order');
+    var dur = 300;
+    if (modeOrder) {
+      var h = itemsEl.offsetHeight;
+      orderEl.style.display = 'block';
+      itemsEl.style.maxHeight = h + 'px';
+      document.body.offsetTop;
+      document.body.classList.add('order-mode');
+      Telegram.WebApp.expand();
+    } else {
+      document.body.classList.remove('order-mode');
+      setTimeout(function() {
+        itemsEl.style.maxHeight = '';
+        orderEl.style.display = 'none';
+      }, dur);
+    }
+    Cafe.updateMainButton();
+  },
+
+  mainBtnClicked: function() {
+    if (!Cafe.canPay || Cafe.isLoading || Cafe.isClosed) return;
+    if (Cafe.modeOrder) {
+      var comment = document.querySelector('.js-order-comment-field').value;
+      var order = Cafe.getOrderData();
+      var user = Telegram.WebApp.initDataUnsafe && Telegram.WebApp.initDataUnsafe.user;
+      var userName = user ? (user.first_name + (user.last_name ? ' ' + user.last_name : '') + (user.username ? ' (@' + user.username + ')' : '')) : 'Inconnu';
+
+      var lines = ['🛒 Nouvelle commande — Boite à Outils', '👤 ' + userName, ''];
+      order.forEach(function(item) {
+        var info = ITEMS[item.id];
+        lines.push('• ' + info.name + ' x' + item.count + ' — ' + Cafe.formatPrice(info.price * item.count));
+      });
+      lines.push('');
+      lines.push('💰 Total : ' + Cafe.formatPrice(Cafe.totalPrice));
+      if (comment) lines.push('💬 Commentaire : ' + comment);
+
+      Cafe.toggleLoading(true);
+      fetch('https://api.telegram.org/bot' + BOT_TOKEN + '/sendMessage', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ chat_id: ADMIN_CHAT_ID, text: lines.join('\n'), parse_mode: 'HTML' })
+      })
+      .then(function(r) { return r.json(); })
+      .then(function(data) {
+        Cafe.toggleLoading(false);
+        if (data.ok) {
+          Telegram.WebApp.close();
+        } else {
+          Cafe.showStatus('Erreur envoi commande');
+        }
+      })
+      .catch(function() {
+        Cafe.toggleLoading(false);
+        Cafe.showStatus('Erreur réseau');
+      });
+    } else {
+      Cafe.toggleMode(true);
+    }
+  },
+
+  toggleLoading: function(loading) {
+    Cafe.isLoading = loading;
+    Cafe.updateMainButton();
+    document.body.classList.toggle('loading', !!loading);
+  },
+
+  showStatus: function(text) {
+    clearTimeout(Cafe.statusTo);
+    var el = document.querySelector('.js-status');
+    el.textContent = text;
+    el.classList.add('shown');
+    if (!Cafe.isClosed) {
+      Cafe.statusTo = setTimeout(function() { Cafe.hideStatus(); }, 2500);
+    }
+  },
+
+  hideStatus: function() {
+    clearTimeout(Cafe.statusTo);
+    document.querySelector('.js-status').classList.remove('shown');
+  },
+
+  initRipple: function() {
+    document.querySelectorAll('.ripple-handler').forEach(function(handler) {
+      var isTouch = 'ontouchstart' in window;
+      function onStart(e) {
+        var mask = handler.querySelector('.ripple-mask');
+        if (!mask) return;
+        var rect = mask.getBoundingClientRect();
+        var clientX = e.type === 'touchstart' ? e.targetTouches[0].clientX : e.clientX;
+        var clientY = e.type === 'touchstart' ? e.targetTouches[0].clientY : e.clientY;
+        var ripple = handler.querySelector('.ripple');
+        var rx = clientX - rect.left - mask.offsetWidth / 2;
+        var ry = clientY - rect.top - mask.offsetHeight / 2;
+        ripple.style.transition = 'none';
+        ripple.style.transform = 'translate3d(' + rx + 'px,' + ry + 'px,0) scale3d(0.2,0.2,1)';
+        ripple.style.opacity = 1;
+        ripple.offsetTop;
+        ripple.style.transform = 'translate3d(' + rx + 'px,' + ry + 'px,0) scale3d(1,1,1)';
+        ripple.style.transition = '';
+        function onEnd() {
+          ripple.style.opacity = 0;
+          document.removeEventListener(isTouch ? 'touchend' : 'mouseup', onEnd);
+        }
+        document.addEventListener(isTouch ? 'touchend' : 'mouseup', onEnd);
+      }
+      handler.addEventListener(isTouch ? 'touchstart' : 'mousedown', onStart);
+    });
+  }
+};
+
+document.addEventListener('DOMContentLoaded', function() { Cafe.init(); });
+</script>
+</body>
+</html>
