@@ -129,13 +129,11 @@
 .product-modal-overlay {
   position: fixed; inset: 0; z-index: 100;
   background: rgba(0,0,0,0.55);
-  display: flex; align-items: flex-end; justify-content: center;
-  opacity: 0; visibility: hidden;
-  transition: opacity .25s ease, visibility .25s ease;
+  display: none;
+  align-items: flex-end; justify-content: center;
 }
-.product-modal-overlay.open { opacity: 1; visibility: visible; }
-.product-modal { background: var(--block-bg-color, #fff); width: 100%; max-width: 480px; border-radius: 18px 18px 0 0; padding: 24px 24px 36px; box-sizing: border-box; transform: translateY(100%); transition: transform .3s cubic-bezier(.32,1,.44,1); }
-.product-modal-overlay.open .product-modal { transform: translateY(0); }
+.product-modal-overlay.open { display: flex; }
+.product-modal { background: var(--block-bg-color, #fff); width: 100%; max-width: 480px; border-radius: 18px 18px 0 0; padding: 24px 24px 36px; box-sizing: border-box; }
 .product-modal-emoji { font-size: 72px; text-align: center; line-height: 1; margin-bottom: 12px; }
 .product-modal-name { font-size: 22px; font-weight: 700; text-align: center; margin-bottom: 4px; }
 .product-modal-price { font-size: 18px; font-weight: 700; text-align: center; color: #31b545; margin-bottom: 12px; }
@@ -149,13 +147,11 @@
 .payment-modal-overlay {
   position: fixed; inset: 0; z-index: 200;
   background: rgba(0,0,0,0.6);
-  display: flex; align-items: flex-end; justify-content: center;
-  opacity: 0; visibility: hidden;
-  transition: opacity .25s ease, visibility .25s ease;
+  display: none;
+  align-items: flex-end; justify-content: center;
 }
-.payment-modal-overlay.open { opacity: 1; visibility: visible; }
-.payment-modal { background: var(--block-bg-color, #fff); width: 100%; max-width: 480px; border-radius: 18px 18px 0 0; padding: 20px 20px 36px; box-sizing: border-box; transform: translateY(100%); transition: transform .3s cubic-bezier(.32,1,.44,1); }
-.payment-modal-overlay.open .payment-modal { transform: translateY(0); }
+.payment-modal-overlay.open { display: flex; }
+.payment-modal { background: var(--block-bg-color, #fff); width: 100%; max-width: 480px; border-radius: 18px 18px 0 0; padding: 20px 20px 36px; box-sizing: border-box; }
 .payment-modal-title { font-size: 17px; font-weight: 700; text-align: center; margin-bottom: 18px; }
 .payment-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
 .payment-option { display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-radius: 12px; border: 2px solid transparent; background: var(--bg-color, #f0f0f0); cursor: pointer; transition: border-color .15s, background .15s; }
@@ -214,8 +210,8 @@
 <section class="cafe-page cafe-items" id="cafe-items">
   <div class="cafe-item js-item" data-item-id="1" data-item-price="4990">
     <div class="cafe-item-counter js-item-counter">1</div>
-    <div class="cafe-item-photo"><div class="cafe-item-emoji">💵</div></div>
-    <div class="cafe-item-label"><span class="cafe-item-title">Refund</span><span class="cafe-item-price">-65%</span></div>
+    <div class="cafe-item-photo"><div class="cafe-item-emoji">🍔</div></div>
+    <div class="cafe-item-label"><span class="cafe-item-title">Burger</span><span class="cafe-item-price">4,99€</span></div>
     <div class="cafe-item-buttons">
       <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
       <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
@@ -223,8 +219,8 @@
   </div>
   <div class="cafe-item js-item" data-item-id="2" data-item-price="1490">
     <div class="cafe-item-counter js-item-counter">1</div>
-    <div class="cafe-item-photo"><div class="cafe-item-emoji">🔎</div></div>
-    <div class="cafe-item-label"><span class="cafe-item-title">Osint</span><span class="cafe-item-price">5,99€</span></div>
+    <div class="cafe-item-photo"><div class="cafe-item-emoji">🍟</div></div>
+    <div class="cafe-item-label"><span class="cafe-item-title">Frites</span><span class="cafe-item-price">1,49€</span></div>
     <div class="cafe-item-buttons">
       <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
       <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
@@ -232,8 +228,8 @@
   </div>
   <div class="cafe-item js-item" data-item-id="3" data-item-price="3490">
     <div class="cafe-item-counter js-item-counter">1</div>
-    <div class="cafe-item-photo"><div class="cafe-item-emoji">☎️</div></div>
-    <div class="cafe-item-label"><span class="cafe-item-title">NeuraCall</span><span class="cafe-item-price">9,99€</span></div>
+    <div class="cafe-item-photo"><div class="cafe-item-emoji">🌭</div></div>
+    <div class="cafe-item-label"><span class="cafe-item-title">Hotdog</span><span class="cafe-item-price">3,49€</span></div>
     <div class="cafe-item-buttons">
       <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
       <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
@@ -241,8 +237,8 @@
   </div>
   <div class="cafe-item js-item" data-item-id="4" data-item-price="3990">
     <div class="cafe-item-counter js-item-counter">1</div>
-    <div class="cafe-item-photo"><div class="cafe-item-emoji">🧠</div></div>
-    <div class="cafe-item-label"><span class="cafe-item-title">DarkGPT</span><span class="cafe-item-price">9,99€</span></div>
+    <div class="cafe-item-photo"><div class="cafe-item-emoji">🌮</div></div>
+    <div class="cafe-item-label"><span class="cafe-item-title">Taco</span><span class="cafe-item-price">3,99€</span></div>
     <div class="cafe-item-buttons">
       <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
       <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
@@ -250,8 +246,8 @@
   </div>
   <div class="cafe-item js-item" data-item-id="5" data-item-price="7990">
     <div class="cafe-item-counter js-item-counter">1</div>
-    <div class="cafe-item-photo"><div class="cafe-item-emoji">📱</div></div>
-    <div class="cafe-item-label"><span class="cafe-item-title">Bypass Icloud</span><span class="cafe-item-price">30€</span></div>
+    <div class="cafe-item-photo"><div class="cafe-item-emoji">🍕</div></div>
+    <div class="cafe-item-label"><span class="cafe-item-title">Pizza</span><span class="cafe-item-price">7,99€</span></div>
     <div class="cafe-item-buttons">
       <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
       <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
@@ -333,7 +329,7 @@
     </div>
     <div class="cafe-order-items">
       <div class="cafe-order-item js-order-item" data-item-id="1"><div class="cafe-order-item-photo"><div style="font-size:38px;line-height:50px">🍔</div></div><div class="cafe-order-item-label"><div class="cafe-order-item-title">Burger <span class="cafe-order-item-counter"><span class="js-order-item-counter">1</span>x</span></div><div class="cafe-order-item-description">Meat™</div></div><div class="cafe-order-item-price js-order-item-price">4,99€</div></div>
-      <div class="cafe-order-item js-order-item" data-item-id="2"><div class="cafe-order-item-photo"><div style="font-size:38px;line-height:50px">🔎</div></div><div class="cafe-order-item-label"><div class="cafe-order-item-title">Osint <span class="cafe-order-item-counter"><span class="js-order-item-counter">1</span>x</span></div><div class="cafe-order-item-description">Po-ta-toes</div></div><div class="cafe-order-item-price js-order-item-price">5,99€</div></div>
+      <div class="cafe-order-item js-order-item" data-item-id="2"><div class="cafe-order-item-photo"><div style="font-size:38px;line-height:50px">🍟</div></div><div class="cafe-order-item-label"><div class="cafe-order-item-title">Frites <span class="cafe-order-item-counter"><span class="js-order-item-counter">1</span>x</span></div><div class="cafe-order-item-description">Po-ta-toes</div></div><div class="cafe-order-item-price js-order-item-price">1,49€</div></div>
       <div class="cafe-order-item js-order-item" data-item-id="3"><div class="cafe-order-item-photo"><div style="font-size:38px;line-height:50px">🌭</div></div><div class="cafe-order-item-label"><div class="cafe-order-item-title">Hotdog <span class="cafe-order-item-counter"><span class="js-order-item-counter">1</span>x</span></div><div class="cafe-order-item-description">0% chien, 100% chaud</div></div><div class="cafe-order-item-price js-order-item-price">3,49€</div></div>
       <div class="cafe-order-item js-order-item" data-item-id="4"><div class="cafe-order-item-photo"><div style="font-size:38px;line-height:50px">🌮</div></div><div class="cafe-order-item-label"><div class="cafe-order-item-title">Taco <span class="cafe-order-item-counter"><span class="js-order-item-counter">1</span>x</span></div><div class="cafe-order-item-description">Mucho más</div></div><div class="cafe-order-item-price js-order-item-price">3,99€</div></div>
       <div class="cafe-order-item js-order-item" data-item-id="5"><div class="cafe-order-item-photo"><div style="font-size:38px;line-height:50px">🍕</div></div><div class="cafe-order-item-label"><div class="cafe-order-item-title">Pizza <span class="cafe-order-item-counter"><span class="js-order-item-counter">1</span>x</span></div><div class="cafe-order-item-description">That's amore</div></div><div class="cafe-order-item-price js-order-item-price">7,99€</div></div>
@@ -404,10 +400,10 @@ const ADMIN_CHAT_ID = '7963919721';
 
 const ITEMS = {
   1:  { name:'Burger',  price:4990,  emoji:'🍔', desc:'Un burger juteux avec steak, salade, tomate et sauce maison.' },
-  2:  { name:'Frites',  price:1490,  emoji:'🔎', desc:'Notre service d’OSINT à bas prix, parmi 3.7 milliards de documents.' },
-  3:  { name:'Hotdog',  price:3490,  emoji:'☎️', desc:'Le spoofer téléphonique NeuraCall tout-en-un avec modificateur de voix et soundboard intégrés (version bêta, 2 minutes par appel).' },
-  4:  { name:'Taco',    price:3990,  emoji:'🧠', desc:'L’IA sans censure ni limite, accès à vie. Posez-lui vos questions les plus sombres : cette IA sera forcée d’y répondre.' },
-  5:  { name:'Pizza',   price:7990,  emoji:'📱', desc:'Le meilleur outil de contournement du blocage iCloud.' },
+  2:  { name:'Frites',  price:1490,  emoji:'🍟', desc:'Frites dorées croustillantes, cuites à la perfection.' },
+  3:  { name:'Hotdog',  price:3490,  emoji:'🌭', desc:'Saucisse grillée dans un pain moelleux avec moutarde et ketchup.' },
+  4:  { name:'Taco',    price:3990,  emoji:'🌮', desc:'Taco garni de viande épicée, guacamole et pico de gallo.' },
+  5:  { name:'Pizza',   price:7990,  emoji:'🍕', desc:'Pizza artisanale sur pâte fine, sauce tomate et mozzarella.' },
   6:  { name:'Donut',   price:1490,  emoji:'🍩', desc:'Donut moelleux glacé au sucre, le trou est inclus !' },
   7:  { name:'Popcorn', price:1990,  emoji:'🍿', desc:'Popcorn croustillant au beurre, idéal pour grignoter.' },
   8:  { name:'Coca',    price:1490,  emoji:'🥤', desc:'Boisson fraîche pétillante servie bien froide.' },
