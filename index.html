@@ -127,13 +127,25 @@
 ```
 /* MODAL PRODUIT */
 .product-modal-overlay {
-  position: fixed; inset: 0; z-index: 100;
-  background: rgba(0,0,0,0.55);
   display: none;
-  align-items: flex-end; justify-content: center;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.7);
+  align-items: flex-end;
+  justify-content: center;
 }
-.product-modal-overlay.open { display: flex; }
-.product-modal { background: var(--block-bg-color, #fff); width: 100%; max-width: 480px; border-radius: 18px 18px 0 0; padding: 24px 24px 36px; box-sizing: border-box; }
+.product-modal-overlay.open {
+  display: flex !important;
+}
+.product-modal {
+  background: var(--block-bg-color, #1c1c1e);
+  width: 100%;
+  max-width: 480px;
+  border-radius: 18px 18px 0 0;
+  padding: 24px 24px 40px;
+  box-sizing: border-box;
+}
 .product-modal-emoji { font-size: 72px; text-align: center; line-height: 1; margin-bottom: 12px; }
 .product-modal-name { font-size: 22px; font-weight: 700; text-align: center; margin-bottom: 4px; }
 .product-modal-price { font-size: 18px; font-weight: 700; text-align: center; color: #31b545; margin-bottom: 12px; }
@@ -145,13 +157,25 @@
 
 /* MODAL PAIEMENT */
 .payment-modal-overlay {
-  position: fixed; inset: 0; z-index: 200;
-  background: rgba(0,0,0,0.6);
   display: none;
-  align-items: flex-end; justify-content: center;
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 9999;
+  background: rgba(0,0,0,0.7);
+  align-items: flex-end;
+  justify-content: center;
 }
-.payment-modal-overlay.open { display: flex; }
-.payment-modal { background: var(--block-bg-color, #fff); width: 100%; max-width: 480px; border-radius: 18px 18px 0 0; padding: 20px 20px 36px; box-sizing: border-box; }
+.payment-modal-overlay.open {
+  display: flex !important;
+}
+.payment-modal {
+  background: var(--block-bg-color, #1c1c1e);
+  width: 100%;
+  max-width: 480px;
+  border-radius: 18px 18px 0 0;
+  padding: 20px 20px 40px;
+  box-sizing: border-box;
+}
 .payment-modal-title { font-size: 17px; font-weight: 700; text-align: center; margin-bottom: 18px; }
 .payment-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
 .payment-option { display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-radius: 12px; border: 2px solid transparent; background: var(--bg-color, #f0f0f0); cursor: pointer; transition: border-color .15s, background .15s; }
@@ -349,50 +373,6 @@
 </section>
 
 <div class="cafe-status-wrap"><div class="cafe-status js-status"></div></div>
-
-<!-- MODAL PRODUIT -->
-
-<div class="product-modal-overlay" id="productModalOverlay">
-  <div class="product-modal">
-    <div class="product-modal-emoji" id="modalEmoji"></div>
-    <div class="product-modal-name" id="modalName"></div>
-    <div class="product-modal-price" id="modalPrice"></div>
-    <div class="product-modal-stars" id="modalStars"></div>
-    <div class="product-modal-desc" id="modalDesc"></div>
-    <button class="product-modal-close" id="modalClose">Fermer</button>
-  </div>
-</div>
-
-<!-- MODAL PAIEMENT -->
-
-<div class="payment-modal-overlay" id="paymentModalOverlay">
-  <div class="payment-modal">
-    <div class="payment-modal-title">💳 Comment souhaitez-vous payer ?</div>
-    <div class="payment-options">
-      <div class="payment-option" data-method="PayPal">
-        <div class="payment-option-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M7.5 21H3L6 3h7c3.5 0 6 1.5 5.5 5C17.5 13 12 13 10 13H8L7.5 21Z" fill="#009CDE"/><path d="M5 21L6.5 3H13c3 0 5 1.5 4.5 5C17 12 13.5 13.5 10.5 13.5H8L7 21H5Z" fill="#003087"/></svg></div>
-        <span class="payment-option-name">PayPal</span>
-        <div class="payment-option-check"></div>
-      </div>
-      <div class="payment-option" data-method="Solana">
-        <div class="payment-option-icon"><svg width="28" height="28" viewBox="0 0 24 24"><defs><linearGradient id="sp" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9945FF"/><stop offset="100%" stop-color="#14F195"/></linearGradient></defs><path d="M4 16.5h13.5l2.5-2.5H6.5L4 16.5Z" fill="url(#sp)"/><path d="M4 9.5h13.5l2.5-2.5H6.5L4 9.5Z" fill="url(#sp)"/><path d="M6.5 13h13.5L17.5 10.5H4L6.5 13Z" fill="url(#sp)"/></svg></div>
-        <span class="payment-option-name">Solana</span>
-        <div class="payment-option-check"></div>
-      </div>
-      <div class="payment-option" data-method="ETH">
-        <div class="payment-option-icon"><svg width="20" height="28" viewBox="0 0 14 22"><polygon points="7,0 7,8 13,11" fill="#627EEA" opacity=".6"/><polygon points="7,0 1,11 7,8" fill="#627EEA"/><polygon points="7,8 13,11 7,14" fill="#627EEA" opacity=".6"/><polygon points="7,8 1,11 7,14" fill="#627EEA"/><polygon points="7,14 13,11 7,22" fill="#627EEA" opacity=".6"/><polygon points="7,14 1,11 7,22" fill="#627EEA"/></svg></div>
-        <span class="payment-option-name">Ethereum (ETH)</span>
-        <div class="payment-option-check"></div>
-      </div>
-      <div class="payment-option" data-method="Revolut">
-        <div class="payment-option-icon"><svg width="28" height="28" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#191C1F"/><path d="M7 5h6c2.5 0 4 1.2 4 3.2 0 1.6-1 2.8-2.5 3.1L17 19h-3l-2.3-7.3H10V19H7V5Zm3 2.5v4h2.8c1 0 1.7-.7 1.7-2s-.7-2-1.7-2H10Z" fill="white"/></svg></div>
-        <span class="payment-option-name">Revolut</span>
-        <div class="payment-option-check"></div>
-      </div>
-    </div>
-    <button class="payment-confirm-btn" id="paymentConfirmBtn">Confirmer le paiement</button>
-  </div>
-</div>
 
 <script>
 const BOT_TOKEN = '8602196448:AAEcMiyEHkT2bggEpMDA6LhRStg67s1Vnqk';
@@ -625,6 +605,50 @@ var Cafe = {
 // Lancement unique au chargement
 document.addEventListener('DOMContentLoaded', function() { Cafe.init(); });
 </script>
+
+<!-- MODAL PRODUIT — hors du flux de page -->
+
+<div class="product-modal-overlay" id="productModalOverlay">
+  <div class="product-modal">
+    <div class="product-modal-emoji" id="modalEmoji"></div>
+    <div class="product-modal-name" id="modalName"></div>
+    <div class="product-modal-price" id="modalPrice"></div>
+    <div class="product-modal-stars" id="modalStars"></div>
+    <div class="product-modal-desc" id="modalDesc"></div>
+    <button class="product-modal-close" id="modalClose">Fermer</button>
+  </div>
+</div>
+
+<!-- MODAL PAIEMENT — hors du flux de page -->
+
+<div class="payment-modal-overlay" id="paymentModalOverlay">
+  <div class="payment-modal">
+    <div class="payment-modal-title">💳 Comment souhaitez-vous payer ?</div>
+    <div class="payment-options">
+      <div class="payment-option" data-method="PayPal">
+        <div class="payment-option-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M7.5 21H3L6 3h7c3.5 0 6 1.5 5.5 5C17.5 13 12 13 10 13H8L7.5 21Z" fill="#009CDE"/><path d="M5 21L6.5 3H13c3 0 5 1.5 4.5 5C17 12 13.5 13.5 10.5 13.5H8L7 21H5Z" fill="#003087"/></svg></div>
+        <span class="payment-option-name">PayPal</span>
+        <div class="payment-option-check"></div>
+      </div>
+      <div class="payment-option" data-method="Solana">
+        <div class="payment-option-icon"><svg width="28" height="28" viewBox="0 0 24 24"><defs><linearGradient id="sp" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9945FF"/><stop offset="100%" stop-color="#14F195"/></linearGradient></defs><path d="M4 16.5h13.5l2.5-2.5H6.5L4 16.5Z" fill="url(#sp)"/><path d="M4 9.5h13.5l2.5-2.5H6.5L4 9.5Z" fill="url(#sp)"/><path d="M6.5 13h13.5L17.5 10.5H4L6.5 13Z" fill="url(#sp)"/></svg></div>
+        <span class="payment-option-name">Solana</span>
+        <div class="payment-option-check"></div>
+      </div>
+      <div class="payment-option" data-method="ETH">
+        <div class="payment-option-icon"><svg width="20" height="28" viewBox="0 0 14 22"><polygon points="7,0 7,8 13,11" fill="#627EEA" opacity=".6"/><polygon points="7,0 1,11 7,8" fill="#627EEA"/><polygon points="7,8 13,11 7,14" fill="#627EEA" opacity=".6"/><polygon points="7,8 1,11 7,14" fill="#627EEA"/><polygon points="7,14 13,11 7,22" fill="#627EEA" opacity=".6"/><polygon points="7,14 1,11 7,22" fill="#627EEA"/></svg></div>
+        <span class="payment-option-name">Ethereum (ETH)</span>
+        <div class="payment-option-check"></div>
+      </div>
+      <div class="payment-option" data-method="Revolut">
+        <div class="payment-option-icon"><svg width="28" height="28" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#191C1F"/><path d="M7 5h6c2.5 0 4 1.2 4 3.2 0 1.6-1 2.8-2.5 3.1L17 19h-3l-2.3-7.3H10V19H7V5Zm3 2.5v4h2.8c1 0 1.7-.7 1.7-2s-.7-2-1.7-2H10Z" fill="white"/></svg></div>
+        <span class="payment-option-name">Revolut</span>
+        <div class="payment-option-check"></div>
+      </div>
+    </div>
+    <button class="payment-confirm-btn" id="paymentConfirmBtn">Confirmer le paiement</button>
+  </div>
+</div>
 
 </body>
 </html>
