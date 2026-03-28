@@ -5,9 +5,6 @@
   <meta charset="utf-8">
   <title>Boite à Outils</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"/>
-  <meta name="format-detection" content="telephone=no"/>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-  <meta name="robots" content="noindex, nofollow"/>
   <script src="https://tg.dev/js/telegram-web-app.js?7"></script>
   <script>
     function setThemeClass() { document.documentElement.className = Telegram.WebApp.colorScheme; }
@@ -33,73 +30,45 @@
       --page-hint-color: #83878a;
       --hint-color: #74787a;
       --placeholder-color: #999da1;
-      --ripple-duration: .45s;
       -webkit-user-select: none; user-select: none; cursor: default;
     }
-    html.dark body { --bg-color: #0f0f0f; --text-color: #fff; --page-hint-color: #9b9ba1; --hint-color: #64666d; --placeholder-color: #5d6163; }
+    html.dark body { --bg-color: #0f0f0f; --text-color: #fff; --page-hint-color: #9b9ba1; --hint-color: #64666d; }
     body.order-mode { background-color: var(--bg-color); }
     * { -webkit-tap-highlight-color: transparent; }
-    .cafe-page { transition: filter var(--animation); }
     .cafe-block { background-color: var(--block-bg-color); box-shadow: 0 0.5px rgba(0,0,0,.07); }
-    .cafe-items {
-      display: flex; flex-wrap: wrap; margin: 0 auto; max-width: 480px;
-      justify-content: space-around; align-content: flex-end;
-      transition: max-height var(--page-animation), opacity var(--page-animation);
-      background-color: var(--block-bg-color);
-    }
+    .cafe-items { display: flex; flex-wrap: wrap; margin: 0 auto; max-width: 480px; justify-content: space-around; align-content: flex-end; transition: max-height var(--page-animation), opacity var(--page-animation); background-color: var(--block-bg-color); }
     body.order-mode .cafe-items { max-height: 0 !important; opacity: 0 !important; }
     .cafe-items:after { content: ''; flex-grow: 2; }
     .cafe-item, .cafe-item-shadow { position: relative; width: 120px; height: 159px; padding: 4px 5px 21px; box-sizing: border-box; text-align: center; }
     .cafe-item-shadow { height: 0; padding: 0; margin: 0; }
     .cafe-item-photo { position: relative; height: 78px; }
-    .cafe-item-photo .cafe-item-emoji { font-size: 70px; line-height: 78px; cursor: pointer; }
+    .cafe-item-photo .cafe-item-emoji { font-size: 70px; line-height: 78px; cursor: pointer; display: block; }
     .cafe-item-label { display: flex; justify-content: center; }
     .cafe-item-title { font-weight: 500; }
     .cafe-item-price { font-weight: 700; white-space: nowrap; }
     .cafe-item-price:before { display: inline-block; vertical-align: top; content: ''; width: 2px; height: 2px; border-radius: 2px; background-color: currentColor; margin: 7px 4px; }
-    .cafe-item-buttons { display: flex; width: 80px; justify-content: space-between; margin: 10px auto 0; position: relative; transition: all var(--animation); }
+    .cafe-item-buttons { display: flex; width: 80px; justify-content: space-between; margin: 10px auto 0; position: relative; }
     button { cursor: pointer; }
-    button, .cafe-item-counter {
-      display: inline-block; font-family: inherit; font-weight: 700; font-size: 14px;
-      line-height: 18px; padding: 6px 16px; height: 30px; border-radius: 7px;
-      box-sizing: border-box; background-color: var(--main-color);
-      text-transform: uppercase; color: #fff; outline: none; border: none;
-    }
-    .cafe-item-counter {
-      position: absolute; right: 0; top: 0; min-width: 22px; height: 22px;
-      padding: 2px 6px; margin: 4px 6px; border-radius: 11px;
-      transform: scale3d(0,0,1); animation: var(--animation) both;
-      pointer-events: none; z-index: 3;
-    }
+    button, .cafe-item-counter { display: inline-block; font-family: inherit; font-weight: 700; font-size: 14px; line-height: 18px; padding: 6px 16px; height: 30px; border-radius: 7px; box-sizing: border-box; background-color: var(--main-color); text-transform: uppercase; color: #fff; outline: none; border: none; }
+    .cafe-item-counter { position: absolute; right: 0; top: 0; min-width: 22px; height: 22px; padding: 2px 6px; margin: 4px 6px; border-radius: 11px; transform: scale3d(0,0,1); animation: var(--animation) both; pointer-events: none; z-index: 3; }
     .cafe-item-incr-button { position: absolute !important; top: 0; right: 0; transition: width var(--animation); width: 80px; }
     .selected .cafe-item-incr-button { width: 38px; }
     .cafe-item-decr-button { position: relative; width: 38px; background-color: #e64d44; pointer-events: none; transform: scale3d(0.9,0.9,1); transition: transform var(--animation), visibility var(--animation); visibility: hidden; }
     .selected .cafe-item-decr-button { pointer-events: auto; transform: scale3d(1,1,1); visibility: visible; }
-    .cafe-item-incr-button:before, .cafe-item-incr-button:after, .cafe-item-decr-button:before {
-      display: inline-block; position: absolute; content: ''; left: 0; right: 0; top: 0; bottom: 0; margin: auto;
-      width: 14px; height: 3px; background-color: #fff; border-radius: 1px; z-index: 1;
-    }
+    .cafe-item-incr-button:before, .cafe-item-incr-button:after, .cafe-item-decr-button:before { display: inline-block; position: absolute; content: ''; left: 0; right: 0; top: 0; bottom: 0; margin: auto; width: 14px; height: 3px; background-color: #fff; border-radius: 1px; z-index: 1; }
     .cafe-item-incr-button:before, .cafe-item-incr-button:after { background-color: rgba(255,255,255,0); transition: background-color var(--animation); }
     .selected .cafe-item-incr-button:before, .selected .cafe-item-incr-button:after { background-color: #fff; }
     .cafe-item-incr-button .button-item-label { transition: transform var(--animation); }
     .selected .cafe-item-incr-button .button-item-label { transform: scale3d(0.4,0,1); }
     .cafe-item-incr-button:after { width: 3px; height: 14px; }
     .cafe-status-wrap { position: fixed; left: 0; right: 0; top: 0; transform: translateY(var(--tg-viewport-height, 100vh)); }
-    .cafe-status {
-      position: fixed; bottom: 0; left: 0; right: 0; display: flex; width: 100%;
-      padding: 8px 20px; justify-content: center; align-items: center;
-      background-color: #e64d44; box-shadow: 0 var(--status-height) #e64d44;
-      color: #fff; height: var(--status-height);
-      transition: transform var(--animation), visibility var(--animation);
-      transform: translateY(var(--status-height)); box-sizing: border-box;
-      pointer-events: none; visibility: hidden; z-index: 11;
-    }
+    .cafe-status { position: fixed; bottom: 0; left: 0; right: 0; display: flex; width: 100%; padding: 8px 20px; justify-content: center; align-items: center; background-color: #e64d44; color: #fff; height: var(--status-height); transition: transform var(--animation), visibility var(--animation); transform: translateY(var(--status-height)); box-sizing: border-box; pointer-events: none; visibility: hidden; z-index: 11; }
     .cafe-status.shown { pointer-events: auto; visibility: visible; transform: translateY(0); }
     .cafe-order-overview { display: none; background-color: var(--bg-color); transition: opacity var(--page-animation); opacity: 0; }
     body.order-mode .cafe-order-overview { opacity: 1; }
     .cafe-order-header-wrap { padding: 21px 20px 14px; display: flex; align-items: center; }
-    .cafe-order-header { font-size: 17px; line-height: 21px; text-transform: uppercase; flex-grow: 1; padding: 0; margin: 0; }
-    .cafe-order-edit { font-size: 15px; font-weight: 500; color: var(--accent-color); }
+    .cafe-order-header { font-size: 17px; text-transform: uppercase; flex-grow: 1; padding: 0; margin: 0; }
+    .cafe-order-edit { font-size: 15px; font-weight: 500; color: var(--accent-color); cursor: pointer; }
     .cafe-order-item { display: none; padding: 5px 20px 5px 14px; }
     .cafe-order-item.selected { display: flex; }
     .cafe-order-item-label { flex-grow: 1; }
@@ -109,94 +78,70 @@
     .cafe-order-item-description { font-size: 14px; color: var(--page-hint-color); padding: 2px 0; }
     .cafe-order-item-price { font-size: 14px; font-weight: 500; padding: 4px 0; }
     .cafe-text-field-wrap { margin-top: 14px; }
-    .cafe-text-field { font-family: inherit; font-size: 17px; padding: 12px 20px 13px; box-sizing: border-box; display: block; outline: none; border: none; border-radius: 0; resize: none; color: var(--text-color); -webkit-user-select: auto; user-select: auto; cursor: auto; width: 100%; background-color: var(--block-bg-color); }
+    .cafe-text-field { font-family: inherit; font-size: 17px; padding: 12px 20px 13px; box-sizing: border-box; display: block; outline: none; border: none; resize: none; color: var(--text-color); -webkit-user-select: auto; user-select: auto; cursor: auto; width: 100%; background-color: var(--block-bg-color); }
     .cafe-text-field::placeholder { color: var(--placeholder-color); }
     .cafe-text-field-hint { font-size: 14px; padding: 10px 20px 24px; color: var(--hint-color); }
     .button-item.ripple-handler { position: relative; }
-    .ripple-mask { position: absolute; left: 0; right: 0; top: 0; bottom: 0; transform: translateZ(0); overflow: hidden; pointer-events: none; }
-    .button-item .ripple-mask { border-radius: inherit; }
-    .button-item .ripple { position: absolute; width: 200%; left: 50%; top: 50%; margin: -100% 0 0 -100%; padding-top: 200%; border-radius: 50%; background-color: rgba(0,0,0,0.07); transition: transform var(--ripple-duration) ease-out, opacity var(--ripple-duration) ease-out; opacity: 0; }
-    .button-item-label { display: inline-block; max-width: 100%; overflow: hidden; text-overflow: ellipsis; vertical-align: top; position: relative; z-index: 1; }
+    .ripple-mask { position: absolute; left: 0; right: 0; top: 0; bottom: 0; overflow: hidden; pointer-events: none; border-radius: inherit; }
+    .button-item .ripple { position: absolute; width: 200%; left: 50%; top: 50%; margin: -100% 0 0 -100%; padding-top: 200%; border-radius: 50%; background-color: rgba(0,0,0,0.1); transition: transform .45s ease-out, opacity .45s ease-out; opacity: 0; }
+    .button-item-label { display: inline-block; vertical-align: top; position: relative; z-index: 1; }
     @keyframes badge-incr  { from,to{transform:scale3d(1,1,1)} 40%{transform:scale3d(1.2,1.2,1)} }
     @keyframes badge-incr2 { from,to{transform:scale3d(1,1,1)} 40%{transform:scale3d(1.2,1.2,1)} }
     @keyframes badge-decr  { from,to{transform:scale3d(1,1,1)} 40%{transform:scale3d(0.8,0.8,1)} }
     @keyframes badge-decr2 { from,to{transform:scale3d(1,1,1)} 40%{transform:scale3d(0.8,0.8,1)} }
-    @keyframes badge-show  { from{transform:scale3d(0.5,0.5,1);opacity:0;visibility:hidden} 30%{transform:scale3d(1.2,1.2,1)} to{transform:scale3d(1,1,1);opacity:1;visibility:visible} }
-    @keyframes badge-hide  { from{transform:scale3d(1,1,1);opacity:1;visibility:visible} to{transform:scale3d(0.5,0.5,1);opacity:0;visibility:hidden} }
+    @keyframes badge-show  { from{transform:scale3d(0.5,0.5,1);opacity:0} 30%{transform:scale3d(1.2,1.2,1)} to{transform:scale3d(1,1,1);opacity:1} }
+    @keyframes badge-hide  { from{transform:scale3d(1,1,1);opacity:1} to{transform:scale3d(0.5,0.5,1);opacity:0} }
 
 ```
-/* MODAL PRODUIT */
-.product-modal-overlay {
+/* ===== MODALES ===== */
+.modal-overlay {
   display: none;
   position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0,0,0,0.65);
   z-index: 9999;
-  background: rgba(0,0,0,0.7);
   align-items: flex-end;
   justify-content: center;
 }
-.product-modal-overlay.open {
-  display: flex !important;
-}
-.product-modal {
-  background: var(--block-bg-color, #1c1c1e);
-  width: 100%;
-  max-width: 480px;
-  border-radius: 18px 18px 0 0;
-  padding: 24px 24px 40px;
+.modal-overlay.open { display: flex; }
+.modal-box {
+  background: var(--block-bg-color, #fff);
+  width: 100%; max-width: 480px;
+  border-radius: 20px 20px 0 0;
+  padding: 24px 20px 40px;
   box-sizing: border-box;
 }
-.product-modal-emoji { font-size: 72px; text-align: center; line-height: 1; margin-bottom: 12px; }
-.product-modal-name { font-size: 22px; font-weight: 700; text-align: center; margin-bottom: 4px; }
-.product-modal-price { font-size: 18px; font-weight: 700; text-align: center; color: #31b545; margin-bottom: 12px; }
-.product-modal-stars { text-align: center; font-size: 26px; margin-bottom: 14px; letter-spacing: 3px; }
-.star-filled { color: #31b545; }
-.star-empty { color: #ccc; }
-.product-modal-desc { font-size: 14px; line-height: 1.5; text-align: center; color: var(--page-hint-color, #83878a); margin-bottom: 20px; }
-.product-modal-close { display: block; width: 100%; padding: 13px; background: #31b545; color: #fff; font-size: 15px; font-weight: 700; border: none; border-radius: 10px; cursor: pointer; text-transform: uppercase; }
-
-/* MODAL PAIEMENT */
-.payment-modal-overlay {
-  display: none;
-  position: fixed;
-  top: 0; left: 0; right: 0; bottom: 0;
-  z-index: 9999;
-  background: rgba(0,0,0,0.7);
-  align-items: flex-end;
-  justify-content: center;
-}
-.payment-modal-overlay.open {
-  display: flex !important;
-}
-.payment-modal {
-  background: var(--block-bg-color, #1c1c1e);
-  width: 100%;
-  max-width: 480px;
-  border-radius: 18px 18px 0 0;
-  padding: 20px 20px 40px;
-  box-sizing: border-box;
-}
-.payment-modal-title { font-size: 17px; font-weight: 700; text-align: center; margin-bottom: 18px; }
-.payment-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
-.payment-option { display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-radius: 12px; border: 2px solid transparent; background: var(--bg-color, #f0f0f0); cursor: pointer; transition: border-color .15s, background .15s; }
-.payment-option.selected { border-color: #31b545; background: rgba(49,181,69,0.08); }
-.payment-option-icon { width: 28px; height: 28px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
-.payment-option-name { font-size: 15px; font-weight: 600; flex-grow: 1; }
-.payment-option-check { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #ccc; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: border-color .15s, background .15s; }
-.payment-option.selected .payment-option-check { border-color: #31b545; background: #31b545; }
-.payment-option.selected .payment-option-check::after { content: '✓'; color: #fff; font-size: 11px; font-weight: 700; }
-.payment-confirm-btn { display: block; width: 100%; padding: 14px; background: #31b545; color: #fff; font-size: 15px; font-weight: 700; border: none; border-radius: 12px; cursor: pointer; text-transform: uppercase; opacity: 0.4; pointer-events: none; transition: opacity .2s; }
-.payment-confirm-btn.active { opacity: 1; pointer-events: auto; }
+/* produit */
+.modal-emoji { font-size: 72px; text-align: center; line-height: 1.1; margin-bottom: 10px; }
+.modal-name  { font-size: 22px; font-weight: 700; text-align: center; margin-bottom: 4px; }
+.modal-price { font-size: 18px; font-weight: 700; text-align: center; color: #31b545; margin-bottom: 10px; }
+.modal-stars { text-align: center; font-size: 26px; letter-spacing: 3px; margin-bottom: 12px; }
+.star-on  { color: #31b545; }
+.star-off { color: #555; }
+.modal-desc  { font-size: 14px; line-height: 1.5; text-align: center; color: var(--page-hint-color, #83878a); margin-bottom: 20px; }
+.modal-btn   { display: block; width: 100%; padding: 14px; background: #31b545; color: #fff; font-size: 15px; font-weight: 700; border: none; border-radius: 12px; cursor: pointer; text-transform: uppercase; }
+/* paiement */
+.modal-pay-title { font-size: 17px; font-weight: 700; text-align: center; margin-bottom: 16px; }
+.pay-options { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+.pay-option  { display: flex; align-items: center; gap: 12px; padding: 13px 16px; border-radius: 12px; border: 2px solid transparent; background: var(--bg-color, #eee); cursor: pointer; }
+.pay-option.sel { border-color: #31b545; background: rgba(49,181,69,0.1); }
+.pay-icon    { width: 28px; height: 28px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.pay-name    { font-size: 15px; font-weight: 600; flex-grow: 1; }
+.pay-check   { width: 20px; height: 20px; border-radius: 50%; border: 2px solid #999; flex-shrink: 0; display: flex; align-items: center; justify-content: center; }
+.pay-option.sel .pay-check { border-color: #31b545; background: #31b545; }
+.pay-option.sel .pay-check::after { content: '✓'; color: #fff; font-size: 11px; font-weight: 700; }
+.pay-confirm { display: block; width: 100%; padding: 14px; background: #31b545; color: #fff; font-size: 15px; font-weight: 700; border: none; border-radius: 12px; cursor: pointer; text-transform: uppercase; opacity: 0.35; pointer-events: none; }
+.pay-confirm.on { opacity: 1; pointer-events: auto; }
 ```
 
   </style>
 </head>
 <body>
 
-<!-- HEADER GIF -->
+<!-- GIF -->
 
-<div style="width:100%;background:#000;text-align:center;line-height:0;">
-  <img src="https://i.imgur.com/lo5kfol.gif" style="width:100%;max-width:480px;display:block;margin:0 auto;" alt="French Toolbox">
+<div style="width:100%;background:#000;line-height:0;">
+  <img src="https://i.imgur.com/lo5kfol.gif" style="width:100%;max-width:480px;display:block;margin:0 auto;">
 </div>
 
 <!-- BARRE PAIEMENT -->
@@ -205,153 +150,53 @@
   <div style="display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:6px;">
     <span style="color:#aaa;font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;">Modes de paiement</span>
     <span style="display:flex;align-items:center;gap:4px;color:#fff;font-size:11px;font-weight:600;">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M7.5 21H3L6 3h7c3.5 0 6 1.5 5.5 5C17.5 13 12 13 10 13H8L7.5 21Z" fill="#009CDE"/><path d="M10 13c2 0 7.5 0 8.5-5C19 4.5 16.5 3 13 3H6L3 21h4.5L10 13Z" fill="#012169" opacity=".4"/></svg>
-      PayPal
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M7.5 21H3L6 3h7c3.5 0 6 1.5 5.5 5C17.5 13 12 13 10 13H8L7.5 21Z" fill="#009CDE"/><path d="M10 13c2 0 7.5 0 8.5-5C19 4.5 16.5 3 13 3H6L3 21h4.5L10 13Z" fill="#012169" opacity=".4"/></svg>PayPal
     </span>
     <span style="display:flex;align-items:center;gap:4px;color:#fff;font-size:11px;font-weight:600;">
-      <svg width="16" height="16" viewBox="0 0 24 24"><defs><linearGradient id="s1" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9945FF"/><stop offset="100%" stop-color="#14F195"/></linearGradient></defs><path d="M4 16.5h13.5l2.5-2.5H6.5L4 16.5Z" fill="url(#s1)"/><path d="M4 9.5h13.5l2.5-2.5H6.5L4 9.5Z" fill="url(#s1)"/><path d="M6.5 13h13.5L17.5 10.5H4L6.5 13Z" fill="url(#s1)"/></svg>
-      Solana
+      <svg width="16" height="16" viewBox="0 0 24 24"><defs><linearGradient id="sg" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9945FF"/><stop offset="100%" stop-color="#14F195"/></linearGradient></defs><path d="M4 16.5h13.5l2.5-2.5H6.5L4 16.5Z" fill="url(#sg)"/><path d="M4 9.5h13.5l2.5-2.5H6.5L4 9.5Z" fill="url(#sg)"/><path d="M6.5 13h13.5L17.5 10.5H4L6.5 13Z" fill="url(#sg)"/></svg>Solana
     </span>
     <span style="display:flex;align-items:center;gap:4px;color:#fff;font-size:11px;font-weight:600;">
-      <svg width="14" height="16" viewBox="0 0 14 22"><polygon points="7,0 7,8 13,11" fill="#627EEA" opacity=".6"/><polygon points="7,0 1,11 7,8" fill="#627EEA"/><polygon points="7,8 13,11 7,14" fill="#627EEA" opacity=".6"/><polygon points="7,8 1,11 7,14" fill="#627EEA"/><polygon points="7,14 13,11 7,22" fill="#627EEA" opacity=".6"/><polygon points="7,14 1,11 7,22" fill="#627EEA"/></svg>
-      ETH
+      <svg width="14" height="16" viewBox="0 0 14 22"><polygon points="7,0 7,8 13,11" fill="#627EEA" opacity=".6"/><polygon points="7,0 1,11 7,8" fill="#627EEA"/><polygon points="7,8 13,11 7,14" fill="#627EEA" opacity=".6"/><polygon points="7,8 1,11 7,14" fill="#627EEA"/><polygon points="7,14 13,11 7,22" fill="#627EEA" opacity=".6"/><polygon points="7,14 1,11 7,22" fill="#627EEA"/></svg>ETH
     </span>
     <span style="display:flex;align-items:center;gap:4px;color:#fff;font-size:11px;font-weight:600;">
-      <svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="5" fill="#191C1F"/><path d="M7 5h6c2.5 0 4 1.2 4 3.2 0 1.6-1 2.8-2.5 3.1L17 19h-3l-2.3-7.3H10V19H7V5Zm3 2.5v4h2.8c1 0 1.7-.7 1.7-2s-.7-2-1.7-2H10Z" fill="white"/></svg>
-      Revolut
+      <svg width="16" height="16" viewBox="0 0 24 24"><rect width="24" height="24" rx="5" fill="#191C1F"/><path d="M7 5h6c2.5 0 4 1.2 4 3.2 0 1.6-1 2.8-2.5 3.1L17 19h-3l-2.3-7.3H10V19H7V5Zm3 2.5v4h2.8c1 0 1.7-.7 1.7-2s-.7-2-1.7-2H10Z" fill="white"/></svg>Revolut
     </span>
   </div>
   <div style="display:flex;align-items:center;gap:6px;">
     <span style="color:#666;font-size:10px;">French Toolbox® by @cproject01</span>
     <a href="https://t.me/cproject01" target="_blank" style="display:flex;align-items:center;text-decoration:none;">
-      <svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#2CA5E0"/><path d="M5 12l13-6-4 14-3-5-6 3 3-4-3-2Z" fill="white"/><path d="M9 15l1-4 5-3-5 4-1 3Z" fill="#C8DAEA"/></svg>
+      <svg width="16" height="16" viewBox="0 0 24 24"><circle cx="12" cy="12" r="12" fill="#2CA5E0"/><path d="M5 12l13-6-4 14-3-5-6 3 3-4-3-2Z" fill="white"/></svg>
     </a>
   </div>
 </div>
 
 <!-- MENU -->
 
-<section class="cafe-page cafe-items" id="cafe-items">
-  <div class="cafe-item js-item" data-item-id="1" data-item-price="4990">
-    <div class="cafe-item-counter js-item-counter">1</div>
-    <div class="cafe-item-photo"><div class="cafe-item-emoji">🍔</div></div>
-    <div class="cafe-item-label"><span class="cafe-item-title">Burger</span><span class="cafe-item-price">4,99€</span></div>
-    <div class="cafe-item-buttons">
-      <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
-      <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
-    </div>
-  </div>
-  <div class="cafe-item js-item" data-item-id="2" data-item-price="1490">
-    <div class="cafe-item-counter js-item-counter">1</div>
-    <div class="cafe-item-photo"><div class="cafe-item-emoji">🍟</div></div>
-    <div class="cafe-item-label"><span class="cafe-item-title">Frites</span><span class="cafe-item-price">1,49€</span></div>
-    <div class="cafe-item-buttons">
-      <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
-      <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
-    </div>
-  </div>
-  <div class="cafe-item js-item" data-item-id="3" data-item-price="3490">
-    <div class="cafe-item-counter js-item-counter">1</div>
-    <div class="cafe-item-photo"><div class="cafe-item-emoji">🌭</div></div>
-    <div class="cafe-item-label"><span class="cafe-item-title">Hotdog</span><span class="cafe-item-price">3,49€</span></div>
-    <div class="cafe-item-buttons">
-      <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
-      <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
-    </div>
-  </div>
-  <div class="cafe-item js-item" data-item-id="4" data-item-price="3990">
-    <div class="cafe-item-counter js-item-counter">1</div>
-    <div class="cafe-item-photo"><div class="cafe-item-emoji">🌮</div></div>
-    <div class="cafe-item-label"><span class="cafe-item-title">Taco</span><span class="cafe-item-price">3,99€</span></div>
-    <div class="cafe-item-buttons">
-      <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
-      <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
-    </div>
-  </div>
-  <div class="cafe-item js-item" data-item-id="5" data-item-price="7990">
-    <div class="cafe-item-counter js-item-counter">1</div>
-    <div class="cafe-item-photo"><div class="cafe-item-emoji">🍕</div></div>
-    <div class="cafe-item-label"><span class="cafe-item-title">Pizza</span><span class="cafe-item-price">7,99€</span></div>
-    <div class="cafe-item-buttons">
-      <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
-      <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
-    </div>
-  </div>
-  <div class="cafe-item js-item" data-item-id="6" data-item-price="1490">
-    <div class="cafe-item-counter js-item-counter">1</div>
-    <div class="cafe-item-photo"><div class="cafe-item-emoji">🍩</div></div>
-    <div class="cafe-item-label"><span class="cafe-item-title">Donut</span><span class="cafe-item-price">1,49€</span></div>
-    <div class="cafe-item-buttons">
-      <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
-      <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
-    </div>
-  </div>
-  <div class="cafe-item js-item" data-item-id="7" data-item-price="1990">
-    <div class="cafe-item-counter js-item-counter">1</div>
-    <div class="cafe-item-photo"><div class="cafe-item-emoji">🍿</div></div>
-    <div class="cafe-item-label"><span class="cafe-item-title">Popcorn</span><span class="cafe-item-price">1,99€</span></div>
-    <div class="cafe-item-buttons">
-      <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
-      <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
-    </div>
-  </div>
-  <div class="cafe-item js-item" data-item-id="8" data-item-price="1490">
-    <div class="cafe-item-counter js-item-counter">1</div>
-    <div class="cafe-item-photo"><div class="cafe-item-emoji">🥤</div></div>
-    <div class="cafe-item-label"><span class="cafe-item-title">Coca</span><span class="cafe-item-price">1,49€</span></div>
-    <div class="cafe-item-buttons">
-      <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
-      <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
-    </div>
-  </div>
-  <div class="cafe-item js-item" data-item-id="9" data-item-price="10990">
-    <div class="cafe-item-counter js-item-counter">1</div>
-    <div class="cafe-item-photo"><div class="cafe-item-emoji">🎂</div></div>
-    <div class="cafe-item-label"><span class="cafe-item-title">Gâteau</span><span class="cafe-item-price">10,99€</span></div>
-    <div class="cafe-item-buttons">
-      <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
-      <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
-    </div>
-  </div>
-  <div class="cafe-item js-item" data-item-id="10" data-item-price="5990">
-    <div class="cafe-item-counter js-item-counter">1</div>
-    <div class="cafe-item-photo"><div class="cafe-item-emoji">🍦</div></div>
-    <div class="cafe-item-label"><span class="cafe-item-title">Glace</span><span class="cafe-item-price">5,99€</span></div>
-    <div class="cafe-item-buttons">
-      <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
-      <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
-    </div>
-  </div>
-  <div class="cafe-item js-item" data-item-id="11" data-item-price="3990">
-    <div class="cafe-item-counter js-item-counter">1</div>
-    <div class="cafe-item-photo"><div class="cafe-item-emoji">🍪</div></div>
-    <div class="cafe-item-label"><span class="cafe-item-title">Cookie</span><span class="cafe-item-price">3,99€</span></div>
-    <div class="cafe-item-buttons">
-      <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
-      <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
-    </div>
-  </div>
-  <div class="cafe-item js-item" data-item-id="12" data-item-price="7990">
-    <div class="cafe-item-counter js-item-counter">1</div>
-    <div class="cafe-item-photo"><div class="cafe-item-emoji">🍮</div></div>
-    <div class="cafe-item-label"><span class="cafe-item-title">Flan</span><span class="cafe-item-price">7,99€</span></div>
-    <div class="cafe-item-buttons">
-      <button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button>
-      <button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button>
-    </div>
-  </div>
-  <div class="cafe-item-shadow"></div><div class="cafe-item-shadow"></div><div class="cafe-item-shadow"></div><div class="cafe-item-shadow"></div>
+<section id="cafe-items" style="display:flex;flex-wrap:wrap;margin:0 auto;max-width:480px;justify-content:space-around;background:var(--block-bg-color);transition:max-height .3s ease,opacity .3s ease;">
+  <div class="cafe-item js-item" data-item-id="1" data-item-price="4990"><div class="cafe-item-counter js-item-counter">1</div><div class="cafe-item-photo"><div class="cafe-item-emoji">🍔</div></div><div class="cafe-item-label"><span class="cafe-item-title">Burger</span><span class="cafe-item-price">4,99€</span></div><div class="cafe-item-buttons"><button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button><button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button></div></div>
+  <div class="cafe-item js-item" data-item-id="2" data-item-price="1490"><div class="cafe-item-counter js-item-counter">1</div><div class="cafe-item-photo"><div class="cafe-item-emoji">🍟</div></div><div class="cafe-item-label"><span class="cafe-item-title">Frites</span><span class="cafe-item-price">1,49€</span></div><div class="cafe-item-buttons"><button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button><button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button></div></div>
+  <div class="cafe-item js-item" data-item-id="3" data-item-price="3490"><div class="cafe-item-counter js-item-counter">1</div><div class="cafe-item-photo"><div class="cafe-item-emoji">🌭</div></div><div class="cafe-item-label"><span class="cafe-item-title">Hotdog</span><span class="cafe-item-price">3,49€</span></div><div class="cafe-item-buttons"><button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button><button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button></div></div>
+  <div class="cafe-item js-item" data-item-id="4" data-item-price="3990"><div class="cafe-item-counter js-item-counter">1</div><div class="cafe-item-photo"><div class="cafe-item-emoji">🌮</div></div><div class="cafe-item-label"><span class="cafe-item-title">Taco</span><span class="cafe-item-price">3,99€</span></div><div class="cafe-item-buttons"><button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button><button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button></div></div>
+  <div class="cafe-item js-item" data-item-id="5" data-item-price="7990"><div class="cafe-item-counter js-item-counter">1</div><div class="cafe-item-photo"><div class="cafe-item-emoji">🍕</div></div><div class="cafe-item-label"><span class="cafe-item-title">Pizza</span><span class="cafe-item-price">7,99€</span></div><div class="cafe-item-buttons"><button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button><button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button></div></div>
+  <div class="cafe-item js-item" data-item-id="6" data-item-price="1490"><div class="cafe-item-counter js-item-counter">1</div><div class="cafe-item-photo"><div class="cafe-item-emoji">🍩</div></div><div class="cafe-item-label"><span class="cafe-item-title">Donut</span><span class="cafe-item-price">1,49€</span></div><div class="cafe-item-buttons"><button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button><button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button></div></div>
+  <div class="cafe-item js-item" data-item-id="7" data-item-price="1990"><div class="cafe-item-counter js-item-counter">1</div><div class="cafe-item-photo"><div class="cafe-item-emoji">🍿</div></div><div class="cafe-item-label"><span class="cafe-item-title">Popcorn</span><span class="cafe-item-price">1,99€</span></div><div class="cafe-item-buttons"><button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button><button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button></div></div>
+  <div class="cafe-item js-item" data-item-id="8" data-item-price="1490"><div class="cafe-item-counter js-item-counter">1</div><div class="cafe-item-photo"><div class="cafe-item-emoji">🥤</div></div><div class="cafe-item-label"><span class="cafe-item-title">Coca</span><span class="cafe-item-price">1,49€</span></div><div class="cafe-item-buttons"><button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button><button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button></div></div>
+  <div class="cafe-item js-item" data-item-id="9" data-item-price="10990"><div class="cafe-item-counter js-item-counter">1</div><div class="cafe-item-photo"><div class="cafe-item-emoji">🎂</div></div><div class="cafe-item-label"><span class="cafe-item-title">Gâteau</span><span class="cafe-item-price">10,99€</span></div><div class="cafe-item-buttons"><button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button><button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button></div></div>
+  <div class="cafe-item js-item" data-item-id="10" data-item-price="5990"><div class="cafe-item-counter js-item-counter">1</div><div class="cafe-item-photo"><div class="cafe-item-emoji">🍦</div></div><div class="cafe-item-label"><span class="cafe-item-title">Glace</span><span class="cafe-item-price">5,99€</span></div><div class="cafe-item-buttons"><button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button><button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button></div></div>
+  <div class="cafe-item js-item" data-item-id="11" data-item-price="3990"><div class="cafe-item-counter js-item-counter">1</div><div class="cafe-item-photo"><div class="cafe-item-emoji">🍪</div></div><div class="cafe-item-label"><span class="cafe-item-title">Cookie</span><span class="cafe-item-price">3,99€</span></div><div class="cafe-item-buttons"><button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button><button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button></div></div>
+  <div class="cafe-item js-item" data-item-id="12" data-item-price="7990"><div class="cafe-item-counter js-item-counter">1</div><div class="cafe-item-photo"><div class="cafe-item-emoji">🍮</div></div><div class="cafe-item-label"><span class="cafe-item-title">Flan</span><span class="cafe-item-price">7,99€</span></div><div class="cafe-item-buttons"><button class="cafe-item-decr-button js-item-decr-btn button-item ripple-handler"><span class="ripple-mask"><span class="ripple"></span></span></button><button class="cafe-item-incr-button js-item-incr-btn button-item ripple-handler"><span class="button-item-label">Add</span><span class="ripple-mask"><span class="ripple"></span></span></button></div></div>
+  <div class="cafe-item-shadow"></div><div class="cafe-item-shadow"></div><div class="cafe-item-shadow"></div>
 </section>
 
-<!-- RÉCAPITULATIF -->
+<!-- COMMANDE -->
 
-<section class="cafe-page cafe-order-overview" id="cafe-order">
+<section id="cafe-order" class="cafe-block" style="display:none;background:var(--bg-color);transition:opacity .3s ease;opacity:0;">
   <div class="cafe-block">
     <div class="cafe-order-header-wrap">
       <h2 class="cafe-order-header">Votre commande</h2>
       <span class="cafe-order-edit js-order-edit">Modifier</span>
     </div>
-    <div class="cafe-order-items">
+    <div id="order-items">
       <div class="cafe-order-item js-order-item" data-item-id="1"><div class="cafe-order-item-photo"><div style="font-size:38px;line-height:50px">🍔</div></div><div class="cafe-order-item-label"><div class="cafe-order-item-title">Burger <span class="cafe-order-item-counter"><span class="js-order-item-counter">1</span>x</span></div><div class="cafe-order-item-description">Meat™</div></div><div class="cafe-order-item-price js-order-item-price">4,99€</div></div>
       <div class="cafe-order-item js-order-item" data-item-id="2"><div class="cafe-order-item-photo"><div style="font-size:38px;line-height:50px">🍟</div></div><div class="cafe-order-item-label"><div class="cafe-order-item-title">Frites <span class="cafe-order-item-counter"><span class="js-order-item-counter">1</span>x</span></div><div class="cafe-order-item-description">Po-ta-toes</div></div><div class="cafe-order-item-price js-order-item-price">1,49€</div></div>
       <div class="cafe-order-item js-order-item" data-item-id="3"><div class="cafe-order-item-photo"><div style="font-size:38px;line-height:50px">🌭</div></div><div class="cafe-order-item-label"><div class="cafe-order-item-title">Hotdog <span class="cafe-order-item-counter"><span class="js-order-item-counter">1</span>x</span></div><div class="cafe-order-item-description">0% chien, 100% chaud</div></div><div class="cafe-order-item-price js-order-item-price">3,49€</div></div>
@@ -367,288 +212,264 @@
     </div>
   </div>
   <div class="cafe-text-field-wrap">
-    <textarea class="cafe-text-field js-order-comment-field cafe-block" rows="1" placeholder="Ajouter un commentaire…"></textarea>
+    <textarea class="cafe-text-field cafe-block js-order-comment-field" rows="1" placeholder="Ajouter un commentaire…"></textarea>
     <div class="cafe-text-field-hint">Demandes spéciales, allergies, détails…</div>
   </div>
 </section>
 
 <div class="cafe-status-wrap"><div class="cafe-status js-status"></div></div>
 
-<script>
-const BOT_TOKEN = '8602196448:AAEcMiyEHkT2bggEpMDA6LhRStg67s1Vnqk';
-const ADMIN_CHAT_ID = '7963919721';
+<!-- MODAL PRODUIT -->
 
-const ITEMS = {
-  1:  { name:'Burger',  price:4990,  emoji:'🍔', desc:'Un burger juteux avec steak, salade, tomate et sauce maison.' },
-  2:  { name:'Frites',  price:1490,  emoji:'🍟', desc:'Frites dorées croustillantes, cuites à la perfection.' },
-  3:  { name:'Hotdog',  price:3490,  emoji:'🌭', desc:'Saucisse grillée dans un pain moelleux avec moutarde et ketchup.' },
-  4:  { name:'Taco',    price:3990,  emoji:'🌮', desc:'Taco garni de viande épicée, guacamole et pico de gallo.' },
-  5:  { name:'Pizza',   price:7990,  emoji:'🍕', desc:'Pizza artisanale sur pâte fine, sauce tomate et mozzarella.' },
-  6:  { name:'Donut',   price:1490,  emoji:'🍩', desc:'Donut moelleux glacé au sucre, le trou est inclus !' },
-  7:  { name:'Popcorn', price:1990,  emoji:'🍿', desc:'Popcorn croustillant au beurre, idéal pour grignoter.' },
-  8:  { name:'Coca',    price:1490,  emoji:'🥤', desc:'Boisson fraîche pétillante servie bien froide.' },
-  9:  { name:'Gâteau',  price:10990, emoji:'🎂', desc:'Gâteau moelleux multicouche avec crème et décorations.' },
-  10: { name:'Glace',   price:5990,  emoji:'🍦', desc:'Glace onctueuse en cornet, plusieurs parfums disponibles.' },
-  11: { name:'Cookie',  price:3990,  emoji:'🍪', desc:'Cookie maison aux pépites de chocolat, encore tiède.' },
-  12: { name:'Flan',    price:7990,  emoji:'🍮', desc:'Flan caramel onctueux, recette traditionnelle de grand-mère.' },
+<div class="modal-overlay" id="modalProduit">
+  <div class="modal-box">
+    <div class="modal-emoji" id="mEmoji"></div>
+    <div class="modal-name"  id="mName"></div>
+    <div class="modal-price" id="mPrice"></div>
+    <div class="modal-stars" id="mStars"></div>
+    <div class="modal-desc"  id="mDesc"></div>
+    <button class="modal-btn" id="mClose">Fermer</button>
+  </div>
+</div>
+
+<!-- MODAL PAIEMENT -->
+
+<div class="modal-overlay" id="modalPaiement">
+  <div class="modal-box">
+    <div class="modal-pay-title">💳 Comment souhaitez-vous payer ?</div>
+    <div class="pay-options">
+      <div class="pay-option" data-method="PayPal">
+        <div class="pay-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M7.5 21H3L6 3h7c3.5 0 6 1.5 5.5 5C17.5 13 12 13 10 13H8L7.5 21Z" fill="#009CDE"/><path d="M5 21L6.5 3H13c3 0 5 1.5 4.5 5C17 12 13.5 13.5 10.5 13.5H8L7 21H5Z" fill="#003087"/></svg></div>
+        <span class="pay-name">PayPal</span><div class="pay-check"></div>
+      </div>
+      <div class="pay-option" data-method="Solana">
+        <div class="pay-icon"><svg width="28" height="28" viewBox="0 0 24 24"><defs><linearGradient id="sp2" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9945FF"/><stop offset="100%" stop-color="#14F195"/></linearGradient></defs><path d="M4 16.5h13.5l2.5-2.5H6.5L4 16.5Z" fill="url(#sp2)"/><path d="M4 9.5h13.5l2.5-2.5H6.5L4 9.5Z" fill="url(#sp2)"/><path d="M6.5 13h13.5L17.5 10.5H4L6.5 13Z" fill="url(#sp2)"/></svg></div>
+        <span class="pay-name">Solana</span><div class="pay-check"></div>
+      </div>
+      <div class="pay-option" data-method="ETH">
+        <div class="pay-icon"><svg width="20" height="28" viewBox="0 0 14 22"><polygon points="7,0 7,8 13,11" fill="#627EEA" opacity=".6"/><polygon points="7,0 1,11 7,8" fill="#627EEA"/><polygon points="7,8 13,11 7,14" fill="#627EEA" opacity=".6"/><polygon points="7,8 1,11 7,14" fill="#627EEA"/><polygon points="7,14 13,11 7,22" fill="#627EEA" opacity=".6"/><polygon points="7,14 1,11 7,22" fill="#627EEA"/></svg></div>
+        <span class="pay-name">Ethereum (ETH)</span><div class="pay-check"></div>
+      </div>
+      <div class="pay-option" data-method="Revolut">
+        <div class="pay-icon"><svg width="28" height="28" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#191C1F"/><path d="M7 5h6c2.5 0 4 1.2 4 3.2 0 1.6-1 2.8-2.5 3.1L17 19h-3l-2.3-7.3H10V19H7V5Zm3 2.5v4h2.8c1 0 1.7-.7 1.7-2s-.7-2-1.7-2H10Z" fill="white"/></svg></div>
+        <span class="pay-name">Revolut</span><div class="pay-check"></div>
+      </div>
+    </div>
+    <button class="pay-confirm" id="payConfirm">Confirmer le paiement</button>
+  </div>
+</div>
+
+<script>
+var BOT_TOKEN    = '8602196448:AAEcMiyEHkT2bggEpMDA6LhRStg67s1Vnqk';
+var ADMIN_CHAT_ID = '7963919721';
+
+var ITEMS = {
+  1:{name:'Burger',  price:4990,  emoji:'🍔',desc:'Un burger juteux avec steak, salade, tomate et sauce maison.'},
+  2:{name:'Frites',  price:1490,  emoji:'🍟',desc:'Frites dorées croustillantes, cuites à la perfection.'},
+  3:{name:'Hotdog',  price:3490,  emoji:'🌭',desc:'Saucisse grillée dans un pain moelleux avec moutarde et ketchup.'},
+  4:{name:'Taco',    price:3990,  emoji:'🌮',desc:'Taco garni de viande épicée, guacamole et pico de gallo.'},
+  5:{name:'Pizza',   price:7990,  emoji:'🍕',desc:'Pizza artisanale sur pâte fine, sauce tomate et mozzarella.'},
+  6:{name:'Donut',   price:1490,  emoji:'🍩',desc:'Donut moelleux glacé au sucre, le trou est inclus !'},
+  7:{name:'Popcorn', price:1990,  emoji:'🍿',desc:'Popcorn croustillant au beurre, idéal pour grignoter.'},
+  8:{name:'Coca',    price:1490,  emoji:'🥤',desc:'Boisson fraîche pétillante servie bien froide.'},
+  9:{name:'Gâteau',  price:10990, emoji:'🎂',desc:'Gâteau moelleux multicouche avec crème et décorations.'},
+  10:{name:'Glace',  price:5990,  emoji:'🍦',desc:'Glace onctueuse en cornet, plusieurs parfums disponibles.'},
+  11:{name:'Cookie', price:3990,  emoji:'🍪',desc:'Cookie maison aux pépites de chocolat, encore tiède.'},
+  12:{name:'Flan',   price:7990,  emoji:'🍮',desc:'Flan caramel onctueux, recette traditionnelle de grand-mère.'}
 };
 
-// Étoiles et avis aléatoires fixes
-var ITEM_STARS = {}, ITEM_AVIS = {};
-Object.keys(ITEMS).forEach(function(id) {
-  ITEM_STARS[id] = Math.floor(Math.random() * 3) + 3;
-  ITEM_AVIS[id]  = Math.floor(Math.random() * 181) + 150;
+var STARS = {}, AVIS = {};
+Object.keys(ITEMS).forEach(function(id){
+  STARS[id] = Math.floor(Math.random()*3)+3;
+  AVIS[id]  = Math.floor(Math.random()*181)+150;
 });
 
-function fmt(price) { return (price/1000).toFixed(2).replace('.',',')+'€'; }
+function fmt(p){ return (p/1000).toFixed(2).replace('.',',')+'\u20ac'; }
 
-function renderStars(n, avis) {
-  var s = '';
-  for (var i=1;i<=5;i++) s += '<span class="'+(i<=n?'star-filled':'star-empty')+'">★</span>';
-  s += '<span style="font-size:13px;color:#83878a;margin-left:6px;vertical-align:middle;">('+avis+' avis)</span>';
+function stars(n,a){
+  var s='';
+  for(var i=1;i<=5;i++) s+='<span class="'+(i<=n?'star-on':'star-off')+'">★</span>';
+  s+=' <span style="font-size:13px;color:#888;">('+a+' avis)</span>';
   return s;
 }
 
-// ===== CAFE =====
-var Cafe = {
-  canPay: false, modeOrder: false, totalPrice: 0, isLoading: false, isClosed: false,
+// ---- STATE ----
+var canPay=false, modeOrder=false, totalPrice=0, isLoading=false;
 
-  init: function() {
-    Telegram.WebApp.ready();
+function fmt2(p){ return (p/1000).toFixed(2).replace('.',',')+'\u20ac'; }
+
+// ---- MODAL PRODUIT ----
+function openModal(id){
+  var it=ITEMS[id]; if(!it) return;
+  document.getElementById('mEmoji').textContent = it.emoji;
+  document.getElementById('mName').textContent  = it.name;
+  document.getElementById('mPrice').textContent = fmt(it.price);
+  document.getElementById('mStars').innerHTML   = stars(STARS[id],AVIS[id]);
+  document.getElementById('mDesc').textContent  = it.desc;
+  document.getElementById('modalProduit').classList.add('open');
+}
+document.getElementById('mClose').addEventListener('click', function(){
+  document.getElementById('modalProduit').classList.remove('open');
+});
+document.getElementById('modalProduit').addEventListener('click', function(e){
+  if(e.target===this) this.classList.remove('open');
+});
+
+// ---- MODAL PAIEMENT ----
+var selectedPay = null;
+document.querySelectorAll('.pay-option').forEach(function(opt){
+  opt.addEventListener('click', function(){
+    document.querySelectorAll('.pay-option').forEach(function(o){ o.classList.remove('sel'); });
+    opt.classList.add('sel');
+    selectedPay = opt.dataset.method;
+    document.getElementById('payConfirm').classList.add('on');
+  });
+});
+document.getElementById('payConfirm').addEventListener('click', function(){
+  if(!selectedPay) return;
+  document.getElementById('modalPaiement').classList.remove('open');
+  document.querySelectorAll('.pay-option').forEach(function(o){ o.classList.remove('sel'); });
+  document.getElementById('payConfirm').classList.remove('on');
+  var m=selectedPay; selectedPay=null;
+  sendOrder(m);
+});
+document.getElementById('modalPaiement').addEventListener('click', function(e){
+  if(e.target===this) this.classList.remove('open');
+});
+
+// ---- BOUTONS ADD ----
+document.querySelectorAll('.js-item-incr-btn').forEach(function(btn){
+  btn.addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    incrItem(btn.closest('.js-item'), 1);
+  });
+});
+document.querySelectorAll('.js-item-decr-btn').forEach(function(btn){
+  btn.addEventListener('click', function(e){
+    e.preventDefault(); e.stopPropagation();
+    incrItem(btn.closest('.js-item'), -1);
+  });
+});
+
+// ---- EMOJIS ----
+document.querySelectorAll('#cafe-items .cafe-item-emoji').forEach(function(el){
+  el.addEventListener('click', function(e){
+    e.stopPropagation();
+    var item = el.closest('.js-item');
+    if(item) openModal(+item.dataset.itemId);
+  });
+});
+
+// ---- MODIFIER ----
+document.querySelectorAll('.js-order-edit').forEach(function(el){
+  el.addEventListener('click', function(){ toggleMode(false); });
+});
+
+// ---- LOGIQUE PANIER ----
+function incrItem(itemEl, delta){
+  if(isLoading) return;
+  var count = (+itemEl.dataset.itemCount||0)+delta;
+  if(count<0) count=0;
+  itemEl.dataset.itemCount = count;
+  updateItem(itemEl, delta);
+}
+
+function updateItem(itemEl, delta){
+  var price = +itemEl.dataset.itemPrice;
+  var count = +itemEl.dataset.itemCount||0;
+  var cEl = itemEl.querySelector('.js-item-counter');
+  cEl.textContent = count?count:1;
+  var isSel = itemEl.classList.contains('selected');
+  var anim = isSel?(delta>0?'badge-incr':(count>0?'badge-decr':'badge-hide')):'badge-show';
+  if((anim==='badge-incr'||anim==='badge-decr')&&anim===cEl.style.animationName) anim+='2';
+  cEl.style.animationName = anim;
+  itemEl.classList.toggle('selected', count>0);
+  var oi = document.querySelector('.js-order-item[data-item-id="'+itemEl.dataset.itemId+'"]');
+  if(oi){
+    oi.querySelector('.js-order-item-counter').textContent = count?count:1;
+    oi.classList.toggle('selected', count>0);
+    oi.querySelector('.js-order-item-price').textContent = fmt(count*price);
+  }
+  updateTotal();
+}
+
+function updateTotal(){
+  var t=0;
+  document.querySelectorAll('.js-item').forEach(function(el){
+    t += (+el.dataset.itemPrice||0)*(+el.dataset.itemCount||0);
+  });
+  canPay = t>0; totalPrice = t;
+  updateMainBtn();
+}
+
+function updateMainBtn(){
+  var mb = Telegram.WebApp.MainButton;
+  if(modeOrder){
+    if(isLoading){ mb.setParams({is_visible:true,color:'#65c36d'}).showProgress(); }
+    else { mb.setParams({is_visible:!!canPay,text:'PAYER '+fmt(totalPrice),color:'#31b545'}).hideProgress(); }
+  } else {
+    mb.setParams({is_visible:!!canPay,text:'VOIR LA COMMANDE',color:'#31b545'}).hideProgress();
+  }
+}
+
+function toggleMode(show){
+  modeOrder = show;
+  var itemsEl = document.getElementById('cafe-items');
+  var orderEl = document.getElementById('cafe-order');
+  if(show){
+    orderEl.style.display = 'block';
+    setTimeout(function(){ orderEl.style.opacity='1'; }, 10);
+    itemsEl.style.maxHeight = itemsEl.offsetHeight+'px';
+    setTimeout(function(){ itemsEl.style.maxHeight='0'; itemsEl.style.opacity='0'; }, 10);
     Telegram.WebApp.expand();
+  } else {
+    orderEl.style.opacity = '0';
+    setTimeout(function(){ orderEl.style.display='none'; }, 300);
+    itemsEl.style.maxHeight = '';
+    itemsEl.style.opacity = '1';
+  }
+  updateMainBtn();
+}
 
-    document.querySelectorAll('.js-item-incr-btn').forEach(function(btn) {
-      btn.addEventListener('click', function(e) {
-        e.preventDefault(); e.stopPropagation();
-        Cafe.incrClicked(btn.closest('.js-item'), 1);
-      });
-    });
-    document.querySelectorAll('.js-item-decr-btn').forEach(function(btn) {
-      btn.addEventListener('click', function(e) {
-        e.preventDefault(); e.stopPropagation();
-        Cafe.incrClicked(btn.closest('.js-item'), -1);
-      });
-    });
-    document.querySelectorAll('.js-order-edit').forEach(function(el) {
-      el.addEventListener('click', function(e) { e.preventDefault(); Cafe.toggleMode(false); });
-    });
-    document.querySelectorAll('.js-status').forEach(function(el) {
-      el.addEventListener('click', function() { Cafe.hideStatus(); });
-    });
+Telegram.WebApp.MainButton.setParams({text_color:'#fff'}).onClick(function(){
+  if(!canPay||isLoading) return;
+  if(modeOrder){
+    document.getElementById('modalPaiement').classList.add('open');
+  } else {
+    toggleMode(true);
+  }
+});
 
-    // Clic emoji → modale produit
-    document.querySelectorAll('.cafe-items .cafe-item-emoji').forEach(function(el) {
-      el.addEventListener('click', function(e) {
-        e.stopPropagation();
-        var itemEl = el.closest('.js-item');
-        if (itemEl) Cafe.openProductModal(+itemEl.dataset.itemId);
-      });
-    });
+function sendOrder(method){
+  var comment = document.querySelector('.js-order-comment-field').value;
+  var order = [];
+  document.querySelectorAll('.js-item').forEach(function(el){
+    var c=+el.dataset.itemCount||0;
+    if(c>0) order.push({id:+el.dataset.itemId,count:c});
+  });
+  var u = Telegram.WebApp.initDataUnsafe&&Telegram.WebApp.initDataUnsafe.user;
+  var name = u?(u.first_name+(u.last_name?' '+u.last_name:'')+(u.username?' (@'+u.username+')'):''):'Inconnu';
+  var lines = ['🛒 Nouvelle commande','👤 '+name,'💳 Paiement : '+method,''];
+  order.forEach(function(o){
+    var it=ITEMS[o.id];
+    lines.push('• '+it.name+' x'+o.count+' — '+fmt(it.price*o.count));
+  });
+  lines.push('','💰 Total : '+fmt(totalPrice));
+  if(comment) lines.push('💬 '+comment);
+  isLoading=true; updateMainBtn();
+  fetch('https://api.telegram.org/bot'+BOT_TOKEN+'/sendMessage',{
+    method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({chat_id:ADMIN_CHAT_ID,text:lines.join('\n')})
+  }).then(function(r){return r.json();}).then(function(d){
+    isLoading=false; updateMainBtn();
+    if(d.ok) Telegram.WebApp.close();
+    else alert('Erreur envoi');
+  }).catch(function(){ isLoading=false; updateMainBtn(); alert('Erreur réseau'); });
+}
 
-    // Modale produit fermeture
-    document.getElementById('modalClose').addEventListener('click', function() {
-      document.getElementById('productModalOverlay').classList.remove('open');
-    });
-    document.getElementById('productModalOverlay').addEventListener('click', function(e) {
-      if (e.target === this) this.classList.remove('open');
-    });
-
-    // Modale paiement
-    var selectedPayment = null;
-    var payOverlay = document.getElementById('paymentModalOverlay');
-    var confirmBtn = document.getElementById('paymentConfirmBtn');
-
-    document.querySelectorAll('.payment-option').forEach(function(opt) {
-      opt.addEventListener('click', function() {
-        document.querySelectorAll('.payment-option').forEach(function(o) { o.classList.remove('selected'); });
-        opt.classList.add('selected');
-        selectedPayment = opt.dataset.method;
-        confirmBtn.classList.add('active');
-      });
-    });
-    confirmBtn.addEventListener('click', function() {
-      if (!selectedPayment) return;
-      payOverlay.classList.remove('open');
-      document.querySelectorAll('.payment-option').forEach(function(o) { o.classList.remove('selected'); });
-      confirmBtn.classList.remove('active');
-      var method = selectedPayment;
-      selectedPayment = null;
-      Cafe.sendOrder(method);
-    });
-    payOverlay.addEventListener('click', function(e) {
-      if (e.target === payOverlay) payOverlay.classList.remove('open');
-    });
-
-    Telegram.WebApp.MainButton.setParams({ text_color: '#fff' }).onClick(Cafe.mainBtnClicked);
-  },
-
-  openProductModal: function(id) {
-    var item = ITEMS[id]; if (!item) return;
-    document.getElementById('modalEmoji').textContent = item.emoji;
-    document.getElementById('modalName').textContent  = item.name;
-    document.getElementById('modalPrice').textContent = fmt(item.price);
-    document.getElementById('modalStars').innerHTML   = renderStars(ITEM_STARS[id], ITEM_AVIS[id]);
-    document.getElementById('modalDesc').textContent  = item.desc;
-    document.getElementById('productModalOverlay').classList.add('open');
-  },
-
-  incrClicked: function(itemEl, delta) {
-    if (Cafe.isLoading || Cafe.isClosed) return;
-    var count = (+itemEl.dataset.itemCount || 0) + delta;
-    if (count < 0) count = 0;
-    itemEl.dataset.itemCount = count;
-    Cafe.updateItem(itemEl, delta);
-  },
-
-  updateItem: function(itemEl, delta) {
-    var price = +itemEl.dataset.itemPrice;
-    var count = +itemEl.dataset.itemCount || 0;
-    var counterEl = itemEl.querySelector('.js-item-counter');
-    counterEl.textContent = count ? count : 1;
-    var isSelected = itemEl.classList.contains('selected');
-    var animName = isSelected ? (delta>0 ? 'badge-incr' : (count>0 ? 'badge-decr' : 'badge-hide')) : 'badge-show';
-    if ((animName==='badge-incr'||animName==='badge-decr') && animName===counterEl.style.animationName) animName+='2';
-    counterEl.style.animationName = animName;
-    itemEl.classList.toggle('selected', count > 0);
-    var oi = document.querySelector('.js-order-item[data-item-id="'+itemEl.dataset.itemId+'"]');
-    if (oi) {
-      oi.querySelector('.js-order-item-counter').textContent = count ? count : 1;
-      oi.classList.toggle('selected', count > 0);
-      oi.querySelector('.js-order-item-price').textContent = fmt(count * price);
-    }
-    Cafe.updateTotalPrice();
-  },
-
-  updateTotalPrice: function() {
-    var total = 0;
-    document.querySelectorAll('.js-item').forEach(function(el) {
-      total += (+el.dataset.itemPrice||0) * (+el.dataset.itemCount||0);
-    });
-    Cafe.canPay = total > 0;
-    Cafe.totalPrice = total;
-    Cafe.updateMainButton();
-  },
-
-  updateMainButton: function() {
-    var mb = Telegram.WebApp.MainButton;
-    if (Cafe.modeOrder) {
-      if (Cafe.isLoading) { mb.setParams({is_visible:true,color:'#65c36d'}).showProgress(); }
-      else { mb.setParams({is_visible:!!Cafe.canPay, text:'PAYER '+fmt(Cafe.totalPrice), color:'#31b545'}).hideProgress(); }
-    } else {
-      mb.setParams({is_visible:!!Cafe.canPay, text:'VOIR LA COMMANDE', color:'#31b545'}).hideProgress();
-    }
-  },
-
-  getOrderData: function() {
-    var order = [];
-    document.querySelectorAll('.js-item').forEach(function(el) {
-      var c = +el.dataset.itemCount||0;
-      if (c > 0) order.push({id:+el.dataset.itemId, count:c});
-    });
-    return order;
-  },
-
-  toggleMode: function(modeOrder) {
-    Cafe.modeOrder = modeOrder;
-    var itemsEl = document.getElementById('cafe-items');
-    var orderEl = document.getElementById('cafe-order');
-    if (modeOrder) {
-      var h = itemsEl.offsetHeight;
-      orderEl.style.display = 'block';
-      itemsEl.style.maxHeight = h + 'px';
-      document.body.offsetTop;
-      document.body.classList.add('order-mode');
-      Telegram.WebApp.expand();
-    } else {
-      document.body.classList.remove('order-mode');
-      setTimeout(function() { itemsEl.style.maxHeight=''; orderEl.style.display='none'; }, 300);
-    }
-    Cafe.updateMainButton();
-  },
-
-  mainBtnClicked: function() {
-    if (!Cafe.canPay || Cafe.isLoading || Cafe.isClosed) return;
-    if (Cafe.modeOrder) {
-      document.getElementById('paymentModalOverlay').classList.add('open');
-    } else {
-      Cafe.toggleMode(true);
-    }
-  },
-
-  sendOrder: function(paymentMethod) {
-    var comment = document.querySelector('.js-order-comment-field').value;
-    var order = Cafe.getOrderData();
-    var u = Telegram.WebApp.initDataUnsafe && Telegram.WebApp.initDataUnsafe.user;
-    var userName = u ? (u.first_name+(u.last_name?' '+u.last_name:'')+(u.username?' (@'+u.username+')':'')) : 'Inconnu';
-    var lines = ['🛒 Nouvelle commande — Boite à Outils','👤 '+userName,'💳 Paiement : '+paymentMethod,''];
-    order.forEach(function(item) {
-      var info = ITEMS[item.id];
-      lines.push('• '+info.name+' x'+item.count+' — '+fmt(info.price*item.count));
-    });
-    lines.push('','💰 Total : '+fmt(Cafe.totalPrice));
-    if (comment) lines.push('💬 '+comment);
-    Cafe.toggleLoading(true);
-    fetch('https://api.telegram.org/bot'+BOT_TOKEN+'/sendMessage',{
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({chat_id:ADMIN_CHAT_ID, text:lines.join('\n'), parse_mode:'HTML'})
-    }).then(function(r){return r.json();}).then(function(d){
-      Cafe.toggleLoading(false);
-      if (d.ok) Telegram.WebApp.close(); else Cafe.showStatus('Erreur envoi commande');
-    }).catch(function(){ Cafe.toggleLoading(false); Cafe.showStatus('Erreur réseau'); });
-  },
-
-  toggleLoading: function(l) { Cafe.isLoading=l; Cafe.updateMainButton(); document.body.classList.toggle('loading',!!l); },
-  showStatus: function(t) { clearTimeout(Cafe.sTo); var el=document.querySelector('.js-status'); el.textContent=t; el.classList.add('shown'); if(!Cafe.isClosed) Cafe.sTo=setTimeout(function(){Cafe.hideStatus();},2500); },
-  hideStatus: function() { clearTimeout(Cafe.sTo); document.querySelector('.js-status').classList.remove('shown'); }
-};
-
-// Lancement unique au chargement
-document.addEventListener('DOMContentLoaded', function() { Cafe.init(); });
+Telegram.WebApp.ready();
+Telegram.WebApp.expand();
 </script>
-
-<!-- MODAL PRODUIT — hors du flux de page -->
-
-<div class="product-modal-overlay" id="productModalOverlay">
-  <div class="product-modal">
-    <div class="product-modal-emoji" id="modalEmoji"></div>
-    <div class="product-modal-name" id="modalName"></div>
-    <div class="product-modal-price" id="modalPrice"></div>
-    <div class="product-modal-stars" id="modalStars"></div>
-    <div class="product-modal-desc" id="modalDesc"></div>
-    <button class="product-modal-close" id="modalClose">Fermer</button>
-  </div>
-</div>
-
-<!-- MODAL PAIEMENT — hors du flux de page -->
-
-<div class="payment-modal-overlay" id="paymentModalOverlay">
-  <div class="payment-modal">
-    <div class="payment-modal-title">💳 Comment souhaitez-vous payer ?</div>
-    <div class="payment-options">
-      <div class="payment-option" data-method="PayPal">
-        <div class="payment-option-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none"><path d="M7.5 21H3L6 3h7c3.5 0 6 1.5 5.5 5C17.5 13 12 13 10 13H8L7.5 21Z" fill="#009CDE"/><path d="M5 21L6.5 3H13c3 0 5 1.5 4.5 5C17 12 13.5 13.5 10.5 13.5H8L7 21H5Z" fill="#003087"/></svg></div>
-        <span class="payment-option-name">PayPal</span>
-        <div class="payment-option-check"></div>
-      </div>
-      <div class="payment-option" data-method="Solana">
-        <div class="payment-option-icon"><svg width="28" height="28" viewBox="0 0 24 24"><defs><linearGradient id="sp" x1="0" y1="0" x2="1" y2="1"><stop offset="0%" stop-color="#9945FF"/><stop offset="100%" stop-color="#14F195"/></linearGradient></defs><path d="M4 16.5h13.5l2.5-2.5H6.5L4 16.5Z" fill="url(#sp)"/><path d="M4 9.5h13.5l2.5-2.5H6.5L4 9.5Z" fill="url(#sp)"/><path d="M6.5 13h13.5L17.5 10.5H4L6.5 13Z" fill="url(#sp)"/></svg></div>
-        <span class="payment-option-name">Solana</span>
-        <div class="payment-option-check"></div>
-      </div>
-      <div class="payment-option" data-method="ETH">
-        <div class="payment-option-icon"><svg width="20" height="28" viewBox="0 0 14 22"><polygon points="7,0 7,8 13,11" fill="#627EEA" opacity=".6"/><polygon points="7,0 1,11 7,8" fill="#627EEA"/><polygon points="7,8 13,11 7,14" fill="#627EEA" opacity=".6"/><polygon points="7,8 1,11 7,14" fill="#627EEA"/><polygon points="7,14 13,11 7,22" fill="#627EEA" opacity=".6"/><polygon points="7,14 1,11 7,22" fill="#627EEA"/></svg></div>
-        <span class="payment-option-name">Ethereum (ETH)</span>
-        <div class="payment-option-check"></div>
-      </div>
-      <div class="payment-option" data-method="Revolut">
-        <div class="payment-option-icon"><svg width="28" height="28" viewBox="0 0 24 24"><rect width="24" height="24" rx="6" fill="#191C1F"/><path d="M7 5h6c2.5 0 4 1.2 4 3.2 0 1.6-1 2.8-2.5 3.1L17 19h-3l-2.3-7.3H10V19H7V5Zm3 2.5v4h2.8c1 0 1.7-.7 1.7-2s-.7-2-1.7-2H10Z" fill="white"/></svg></div>
-        <span class="payment-option-name">Revolut</span>
-        <div class="payment-option-check"></div>
-      </div>
-    </div>
-    <button class="payment-confirm-btn" id="paymentConfirmBtn">Confirmer le paiement</button>
-  </div>
-</div>
 
 </body>
 </html>
